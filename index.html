@@ -1,0 +1,2863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Bethel Public School | Kasturi, Nagarnar</title>
+
+<meta name="description" content="Bethel Public School, Kasturi, Nagarnar — LKG to Class 8. Quality education, strong values and modern learning in Bastar, Chhattisgarh.">
+<meta name="theme-color" content="#0B3C5D">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%93%3C/text%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================
+   ROOT
+========================= */
+
+:root{
+    --blue:#0B3C5D;
+    --blue2:#145A86;
+    --gold:#D9A05B;
+    --green:#2E8540;
+    --dark:#17202A;
+    --light:#F5F8FC;
+    --white:#FFFFFF;
+
+    --shadow:0 10px 30px rgba(0,0,0,.10);
+    --shadow2:0 18px 45px rgba(0,0,0,.15);
+
+    --radius:18px;
+
+    --font-display:"Fraunces",Georgia,serif;
+    --font-body:"Work Sans","Segoe UI",Arial,sans-serif;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:var(--font-body);
+    scroll-behavior:smooth;
+}
+
+@media(prefers-reduced-motion:reduce){
+    *{
+        scroll-behavior:auto;
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+        transition-duration:.01ms !important;
+    }
+}
+
+body{
+    background:var(--light);
+    color:#273444;
+    line-height:1.6;
+}
+
+a{
+    text-decoration:none;
+}
+
+h1,h2,h3{
+    font-family:var(--font-display);
+    font-weight:600;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible{
+    outline:3px solid var(--gold);
+    outline-offset:2px;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+header{
+    position:sticky;
+    top:0;
+    z-index:2000;
+    background:rgba(11,60,93,.98);
+    backdrop-filter:blur(12px);
+    box-shadow:0 5px 25px rgba(0,0,0,.18);
+}
+
+.navbar{
+    max-width:1300px;
+    margin:auto;
+    padding:9px 5%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo-box{
+    display:flex;
+    align-items:center;
+    gap:11px;
+}
+
+.logo-box img{
+    width:49px;
+    height:49px;
+    object-fit:contain;
+    background:#fff;
+    border-radius:50%;
+    padding:2px;
+}
+
+.logo-text h2{
+    color:white;
+    font-size:16px;
+    letter-spacing:.4px;
+}
+
+.logo-text p{
+    color:var(--gold);
+    font-size:10px;
+    font-weight:600;
+}
+
+.nav-links{
+    display:flex;
+    list-style:none;
+    align-items:center;
+    gap:17px;
+}
+
+.nav-links a{
+    color:#fff;
+    font-size:13px;
+    font-weight:600;
+    transition:.25s;
+}
+
+.nav-links a:hover{
+    color:var(--gold);
+}
+
+.menu-btn{
+    display:none;
+    background:none;
+    border:0;
+    color:#fff;
+    font-size:29px;
+    cursor:pointer;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    min-height:590px;
+    position:relative;
+    display:flex;
+    align-items:center;
+    padding:75px 7%;
+    color:white;
+    overflow:hidden;
+
+    background:
+    linear-gradient(
+        120deg,
+        rgba(5,40,63,.96),
+        rgba(11,60,93,.84),
+        rgba(20,90,134,.70)
+    ),
+    url("campus.jpg") center/cover;
+}
+
+.hero-content{
+    max-width:680px;
+    position:relative;
+    z-index:2;
+}
+
+.hero-content > *{
+    opacity:0;
+    transform:translateY(16px);
+    animation:heroRise .7s ease forwards;
+}
+
+.hero-content > *:nth-child(1){animation-delay:.05s;}
+.hero-content > *:nth-child(2){animation-delay:.15s;}
+.hero-content > *:nth-child(3){animation-delay:.25s;}
+.hero-content > *:nth-child(4){animation-delay:.35s;}
+.hero-content > *:nth-child(5){animation-delay:.45s;}
+.hero-content > *:nth-child(6){animation-delay:.52s;}
+
+@keyframes heroRise{
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@media(prefers-reduced-motion:reduce){
+    .hero-content > *{
+        opacity:1;
+        transform:none;
+        animation:none;
+    }
+}
+
+.hero-logo{
+    width:88px;
+    height:88px;
+    object-fit:contain;
+    background:white;
+    border-radius:50%;
+    padding:3px;
+    margin-bottom:16px;
+}
+
+.hero h1{
+    font-size:48px;
+    line-height:1.1;
+    letter-spacing:.2px;
+    font-weight:600;
+}
+
+.motto{
+    font-family:var(--font-display);
+    color:var(--gold);
+    font-size:22px;
+    font-weight:600;
+    font-style:italic;
+    margin-top:9px;
+}
+
+.tagline{
+    font-size:20px;
+    font-weight:700;
+    margin-top:6px;
+}
+
+.hero-description{
+    max-width:590px;
+    margin:16px 0 25px;
+    color:#e8f0f5;
+    font-size:15px;
+}
+
+.btn{
+    display:inline-block;
+    border:0;
+    padding:13px 24px;
+    border-radius:30px;
+    font-weight:700;
+    cursor:pointer;
+    margin:4px;
+    transition:.25s;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+}
+
+.btn-gold{
+    background:var(--gold);
+    color:#18232c;
+}
+
+.btn-outline{
+    background:transparent;
+    border:2px solid var(--gold);
+    color:#fff;
+}
+
+
+/* =========================
+   COMMON
+========================= */
+
+section{
+    padding:70px 6%;
+}
+
+.section-title{
+    text-align:center;
+    color:var(--blue);
+    font-size:31px;
+    margin-bottom:9px;
+}
+
+.section-subtitle{
+    max-width:720px;
+    margin:0 auto 36px;
+    text-align:center;
+    color:#687585;
+}
+
+.cards{
+    max-width:1200px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(235px,1fr));
+    gap:22px;
+}
+
+.card{
+    padding:27px;
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    transition:.3s;
+    position:relative;
+    overflow:hidden;
+}
+
+.card:hover{
+    transform:translateY(-6px);
+    box-shadow:var(--shadow2);
+}
+
+.card h3{
+    color:var(--blue);
+    margin-bottom:9px;
+}
+
+.icon{
+    font-size:34px;
+    margin-bottom:10px;
+}
+
+
+/* =========================
+   ABOUT
+========================= */
+
+.about{
+    background:#F7FAFC;
+}
+
+.about-card1{
+    background:#EAF4FF;
+    border-top:5px solid #3282B8;
+}
+
+.about-card2{
+    background:#FFF5E6;
+    border-top:5px solid var(--gold);
+}
+
+.about-card3{
+    background:#ECF9F0;
+    border-top:5px solid var(--green);
+}
+
+
+/* =========================
+   PRINCIPAL MESSAGE
+========================= */
+
+.principal-section{
+    background:linear-gradient(135deg,#0B3C5D,#176B9D);
+}
+
+.principal-section .section-title{
+    color:#fff;
+}
+
+.principal-section .section-subtitle{
+    color:#e5edf3;
+}
+
+.principal-message{
+    max-width:850px;
+    margin:auto;
+    background:#fff;
+    border-radius:22px;
+    padding:34px;
+    text-align:center;
+    box-shadow:var(--shadow2);
+    border-top:5px solid var(--gold);
+}
+
+.quote-mark{
+    font-size:48px;
+    color:var(--gold);
+    line-height:1;
+}
+
+.principal-message p{
+    font-size:16px;
+    color:#475569;
+}
+
+.principal-name{
+    margin-top:22px;
+    color:var(--blue);
+    font-weight:700;
+}
+
+
+/* =========================
+   ACADEMICS
+========================= */
+
+.academic-pre{
+    background:#FFF0F5;
+    border-top:5px solid #D85C8A;
+}
+
+.academic-primary{
+    background:#EAF4FF;
+    border-top:5px solid #3282B8;
+}
+
+.academic-middle{
+    background:#EEF9EF;
+    border-top:5px solid #3B9148;
+}
+
+.academic-track{
+    max-width:1200px;
+    margin:auto;
+    position:relative;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(235px,1fr));
+    gap:22px;
+}
+
+.step-number{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    background:var(--blue);
+    color:#fff;
+    font-family:var(--font-display);
+    font-size:14px;
+    font-weight:600;
+    margin-bottom:10px;
+}
+
+.step-age{
+    display:block;
+    font-size:12px;
+    font-weight:600;
+    color:#687585;
+    margin-bottom:4px;
+}
+
+
+/* =========================
+   FACILITIES
+========================= */
+
+.facility-smart{
+    background:#EAF4FF;
+    border-top:5px solid #3282B8;
+}
+
+.facility-learning{
+    background:#F3EDFF;
+    border-top:5px solid #8064A2;
+}
+
+.facility-sports{
+    background:#ECF9EF;
+    border-top:5px solid #3E9B51;
+}
+
+.facility-safety{
+    background:#FFF1E7;
+    border-top:5px solid #E27B38;
+}
+
+.facility-water{
+    background:#E7F9FC;
+    border-top:5px solid #2EA6B5;
+}
+
+.facility-transport{
+    background:#FFF9DF;
+    border-top:5px solid #D0A629;
+}
+
+
+/* =========================
+   GALLERY
+========================= */
+
+.gallery{
+    background:#fff;
+}
+
+.gallery-grid{
+    max-width:1200px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:18px;
+}
+
+.gallery-item{
+    height:220px;
+    position:relative;
+    overflow:hidden;
+    border-radius:17px;
+    background:#e9eef2;
+    box-shadow:var(--shadow);
+}
+
+.gallery-item img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:.4s;
+}
+
+.gallery-item:hover img{
+    transform:scale(1.06);
+}
+
+.gallery-caption{
+    position:absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    padding:35px 12px 11px;
+    color:white;
+    font-weight:600;
+    background:linear-gradient(transparent,rgba(0,0,0,.8));
+}
+
+
+/* =========================
+   ADMIN MODAL
+========================= */
+
+.admin-modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:5000;
+    background:rgba(0,0,0,.65);
+    padding:20px;
+    align-items:center;
+    justify-content:center;
+}
+
+.admin-modal.show{
+    display:flex;
+}
+
+.admin-box{
+    width:100%;
+    max-width:480px;
+    max-height:90vh;
+    overflow:auto;
+    background:#fff;
+    border-radius:22px;
+    padding:27px;
+    box-shadow:0 25px 70px rgba(0,0,0,.3);
+}
+
+.admin-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.admin-header h2{
+    color:var(--blue);
+}
+
+.close-admin{
+    width:38px;
+    height:38px;
+    border:0;
+    border-radius:50%;
+    background:#eef2f5;
+    font-size:21px;
+    cursor:pointer;
+}
+
+.admin-input{
+    width:100%;
+    padding:12px;
+    margin:7px 0 12px;
+    border:1px solid #ccd5dd;
+    border-radius:9px;
+    outline:none;
+}
+
+.admin-manager{
+    display:none;
+}
+
+.admin-manager.show{
+    display:block;
+}
+
+.admin-note{
+    background:#fff7e7;
+    padding:12px;
+    border-radius:10px;
+    font-size:13px;
+    color:#765b26;
+    margin-bottom:15px;
+}
+
+
+/* =========================
+   ADMISSION
+========================= */
+
+.admission{
+    background:linear-gradient(135deg,#0B3C5D,#2E8540);
+    color:white;
+}
+
+.admission .section-title{
+    color:white;
+}
+
+.admission .section-subtitle{
+    color:#e8eeee;
+}
+
+.admission-form{
+    max-width:900px;
+    margin:auto;
+    background:rgba(255,255,255,.12);
+    backdrop-filter:blur(10px);
+    padding:27px;
+    border-radius:21px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+}
+
+.field{
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+}
+
+.field.full{
+    grid-column:1/-1;
+}
+
+.field input,
+.field select,
+.field textarea{
+    width:100%;
+    padding:12px;
+    border:0;
+    border-radius:9px;
+    outline:none;
+}
+
+.field textarea{
+    min-height:90px;
+    resize:vertical;
+}
+
+.field-hint{
+    font-size:11px;
+    color:#dbe7f0;
+    margin-top:2px;
+}
+
+.draft-banner{
+    display:none;
+    max-width:900px;
+    margin:0 auto 16px;
+    background:rgba(217,160,91,.18);
+    border:1px solid var(--gold);
+    color:#fff;
+    padding:12px 16px;
+    border-radius:12px;
+    font-size:13px;
+    display:none;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.draft-banner.show{
+    display:flex;
+}
+
+.draft-banner button{
+    background:transparent;
+    border:1px solid var(--gold);
+    color:var(--gold);
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.form-error-banner{
+    display:none;
+    max-width:900px;
+    margin:0 auto 16px;
+    background:rgba(200,60,60,.18);
+    border:1px solid #e57373;
+    color:#fff;
+    padding:12px 16px;
+    border-radius:12px;
+    font-size:13.5px;
+}
+
+.form-error-banner.show{
+    display:block;
+}
+
+.admission-success{
+    display:none;
+    max-width:640px;
+    margin:auto;
+    background:#fff;
+    color:#273444;
+    border-radius:22px;
+    padding:38px 30px;
+    text-align:center;
+    box-shadow:var(--shadow2);
+    border-top:5px solid var(--green);
+}
+
+.admission-success.show{
+    display:block;
+}
+
+.admission-success .success-icon{
+    font-size:52px;
+    margin-bottom:6px;
+}
+
+.admission-success h3{
+    color:var(--blue);
+    font-size:24px;
+    margin-bottom:10px;
+}
+
+.admission-success p{
+    color:#475569;
+    font-size:15px;
+    line-height:1.65;
+}
+
+.admission-success button{
+    margin-top:20px;
+}
+
+
+/* =========================
+   ADMIN: LOGIN / DASHBOARD
+========================= */
+
+.admin-error{
+    display:none;
+    background:#fdecea;
+    color:#c0392b;
+    padding:10px 12px;
+    border-radius:8px;
+    font-size:13px;
+    margin-bottom:10px;
+}
+
+.admin-error.show{
+    display:block;
+}
+
+.admin-topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:16px;
+}
+
+.admin-topbar span{
+    font-size:12.5px;
+    color:#687585;
+}
+
+.btn-logout{
+    background:#edf1f4;
+    color:#333;
+    border:0;
+    padding:7px 14px;
+    border-radius:20px;
+    font-size:12.5px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.admin-divider{
+    border:none;
+    border-top:1px dashed #d9dee3;
+    margin:26px 0;
+}
+
+.app-table-wrapper{
+    overflow-x:auto;
+    margin-top:12px;
+    border-radius:12px;
+}
+
+.app-table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:12.5px;
+    text-align:left;
+    min-width:640px;
+}
+
+.app-table th,
+.app-table td{
+    padding:10px;
+    border:1px solid #e1e8ed;
+    vertical-align:top;
+}
+
+.app-table th{
+    background:var(--blue);
+    color:#fff;
+    position:sticky;
+    top:0;
+}
+
+.btn-del{
+    background:#e74c3c;
+    color:#fff;
+    border:0;
+    padding:6px 11px;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:12px;
+    font-weight:700;
+    white-space:nowrap;
+}
+
+.app-count-badge{
+    display:inline-block;
+    background:var(--green);
+    color:#fff;
+    font-size:11px;
+    font-weight:700;
+    padding:2px 9px;
+    border-radius:20px;
+    margin-left:6px;
+}
+
+
+/* =========================
+   STUDENT PORTAL
+========================= */
+
+.portal{
+    background:#F5F8FC;
+}
+
+.portal-card{
+    max-width:520px;
+    margin:auto;
+    text-align:center;
+    background:#fff;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:var(--shadow);
+}
+
+.login-input{
+    width:100%;
+    padding:13px;
+    margin:6px 0;
+    border:1px solid #ccd5dd;
+    border-radius:9px;
+    outline:none;
+}
+
+.student-dashboard{
+    display:none;
+    margin-top:22px;
+    text-align:left;
+}
+
+.dashboard-card{
+    background:#F5F8FC;
+    padding:20px;
+    border-radius:15px;
+    margin-top:14px;
+}
+
+.dashboard-card h3{
+    color:var(--blue);
+}
+
+.progress{
+    width:100%;
+    height:14px;
+    margin:10px 0;
+    background:#dfe4e8;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.progress-bar{
+    width:82%;
+    height:100%;
+    background:#2E8540;
+}
+
+.result-table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:12px;
+    font-size:14px;
+}
+
+.result-table th,
+.result-table td{
+    border:1px solid #d9dee3;
+    padding:9px;
+    text-align:center;
+}
+
+.result-table th{
+    background:var(--blue);
+    color:#fff;
+}
+
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact{
+    background:#fff;
+}
+
+.contact-card{
+    max-width:850px;
+    margin:auto;
+    padding:35px;
+    text-align:center;
+    border-radius:22px;
+    background:#F7FAFC;
+    box-shadow:var(--shadow);
+}
+
+.address{
+    font-size:18px;
+    font-weight:600;
+    color:var(--blue);
+    margin:12px 0;
+}
+
+.plus-code{
+    display:inline-block;
+    padding:8px 15px;
+    background:#EAF4FF;
+    border-radius:20px;
+    color:var(--blue);
+    font-weight:700;
+    margin:10px 0;
+}
+
+.map-btn{
+    margin-top:15px;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    background:#082D45;
+    color:white;
+    text-align:center;
+    padding:28px 15px;
+    font-size:13px;
+}
+
+footer strong{
+    color:var(--gold);
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:850px){
+
+    .nav-links{
+        display:none;
+        position:absolute;
+        top:67px;
+        left:0;
+        right:0;
+        background:var(--blue);
+        flex-direction:column;
+        padding:20px;
+        gap:16px;
+        text-align:center;
+        box-shadow:0 10px 20px rgba(0,0,0,.2);
+    }
+
+    .nav-links.active{
+        display:flex;
+        max-height:80vh;
+        overflow-y:auto;
+    }
+
+    .menu-btn{
+        display:block;
+    }
+
+    .hero{
+        min-height:570px;
+        padding:60px 5%;
+        text-align:center;
+    }
+
+    .hero h1{
+        font-size:33px;
+    }
+
+    .hero-logo{
+        width:72px;
+        height:72px;
+    }
+
+    section{
+        padding:55px 5%;
+    }
+
+    .section-title{
+        font-size:27px;
+    }
+
+    .admission-form{
+        grid-template-columns:1fr;
+    }
+
+    .field.full{
+        grid-column:auto;
+    }
+
+    .principal-message{
+        padding:25px 19px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+
+<!-- =====================================
+     HEADER
+===================================== -->
+
+<header>
+
+<div class="navbar">
+
+<div class="logo-box">
+
+<img src="logo.png" alt="Bethel Public School Logo">
+
+<div class="logo-text">
+<h2>BETHEL PUBLIC SCHOOL</h2>
+<p>KASTURI, NAGARNAR, BASTAR</p>
+</div>
+
+</div>
+
+
+<button class="menu-btn" id="menuBtn">☰</button>
+
+
+<ul class="nav-links" id="navLinks">
+
+<li><a href="#home">Home</a></li>
+<li><a href="#about">About</a></li>
+<li><a href="#academics">Academics</a></li>
+<li><a href="#facilities">Facilities</a></li>
+<li><a href="#gallery">Gallery</a></li>
+<li><a href="#admission">Admissions</a></li>
+<li><a href="#portal">Student Portal</a></li>
+<li><a href="#contact">Contact</a></li>
+
+<!-- ADMIN ONLY INSIDE MENU -->
+
+<li>
+<a href="javascript:void(0)" onclick="openAdminModal()">
+🔐 Admin Panel
+</a>
+</li>
+
+</ul>
+
+</div>
+
+</header>
+
+
+<!-- =====================================
+     HERO
+===================================== -->
+
+<section class="hero" id="home">
+
+<div class="hero-content">
+
+<img src="logo.png" class="hero-logo" alt="School Logo">
+
+<h1>BETHEL PUBLIC SCHOOL</h1>
+
+<div class="motto">
+Wise is Great Power
+</div>
+
+<div class="tagline">
+Nurturing Excellence, Shaping Futures.
+</div>
+
+<p class="hero-description">
+Empowering young minds with quality education,
+strong moral values, creativity, discipline and
+modern learning opportunities.
+</p>
+
+<a href="#admission" class="btn btn-gold">
+Apply For Admission
+</a>
+
+<a href="#gallery" class="btn btn-outline">
+Explore Gallery
+</a>
+
+</div>
+
+</section>
+
+
+<!-- =====================================
+     ABOUT
+===================================== -->
+
+<section class="about" id="about">
+
+<h2 class="section-title">
+About Bethel Public School
+</h2>
+
+<p class="section-subtitle">
+A learning environment where every child is encouraged
+to learn, grow, explore and develop strong character.
+</p>
+
+
+<div class="cards">
+
+<div class="card about-card1">
+
+<div class="icon">🎓</div>
+
+<h3>Our Vision</h3>
+
+<p>
+To nurture confident, responsible and knowledgeable
+students who are prepared for a changing world.
+</p>
+
+</div>
+
+
+<div class="card about-card2">
+
+<div class="icon">🌱</div>
+
+<h3>Our Mission</h3>
+
+<p>
+To provide quality education while developing
+academic excellence, discipline, creativity and values.
+</p>
+
+</div>
+
+
+<div class="card about-card3">
+
+<div class="icon">⭐</div>
+
+<h3>Our Values</h3>
+
+<p>
+Discipline • Respect • Integrity • Excellence •
+Responsibility • Creativity
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================
+     PRINCIPAL MESSAGE
+===================================== -->
+
+<section class="principal-section">
+
+<h2 class="section-title">
+Principal's Message
+</h2>
+
+<p class="section-subtitle">
+Guiding every child towards knowledge, confidence and character.
+</p>
+
+
+<div class="principal-message">
+
+<div class="quote-mark">
+“
+</div>
+
+<p>
+Education is not merely about acquiring knowledge;
+it is about developing wisdom, character and confidence.
+At Bethel Public School, we believe every child has
+unique potential. Our aim is to create a supportive
+environment where students develop academically,
+socially, creatively and morally.
+</p>
+
+<div class="principal-name">
+
+Principal<br>
+
+Bethel Public School<br>
+
+Nagarnar
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================
+     ACADEMICS
+===================================== -->
+
+<section id="academics">
+
+<h2 class="section-title">
+Academics & Curriculum
+</h2>
+
+<p class="section-subtitle">
+Student-centred learning from LKG to Class 8.
+</p>
+
+
+<div class="academic-track">
+
+
+<div class="card academic-pre">
+
+<div class="step-number">1</div>
+
+<div class="icon">🧸</div>
+
+<span class="step-age">LKG – UKG</span>
+
+<h3>
+Pre-Primary
+</h3>
+
+<p>
+Activity-based learning, communication,
+creativity, motor skills and early
+foundational development.
+</p>
+
+</div>
+
+
+<div class="card academic-primary">
+
+<div class="step-number">2</div>
+
+<div class="icon">📚</div>
+
+<span class="step-age">Classes 1 – 5</span>
+
+<h3>
+Primary School
+</h3>
+
+<p>
+Strong foundations in language, mathematics,
+environmental studies, reasoning and
+creative learning.
+</p>
+
+</div>
+
+
+<div class="card academic-middle">
+
+<div class="step-number">3</div>
+
+<div class="icon">🔬</div>
+
+<span class="step-age">Classes 6 – 8</span>
+
+<h3>
+Middle School
+</h3>
+
+<p>
+Mathematics, Science, Social Science,
+Languages and Computer Education.
+</p>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- =====================================
+     FACILITIES
+===================================== -->
+
+<section id="facilities">
+
+<h2 class="section-title">
+Campus Facilities
+</h2>
+
+<p class="section-subtitle">
+Facilities designed to support learning, safety,
+creativity and student development.
+</p>
+
+
+<div class="cards">
+
+
+<div class="card facility-smart">
+
+<div class="icon">🖥️</div>
+
+<h3>Smart Classrooms</h3>
+
+<p>
+Interactive and technology-supported learning.
+</p>
+
+</div>
+
+
+<div class="card facility-learning">
+
+<div class="icon">📖</div>
+
+<h3>Learning Resources</h3>
+
+<p>
+Resources supporting classroom and independent learning.
+</p>
+
+</div>
+
+
+<div class="card facility-sports">
+
+<div class="icon">⚽</div>
+
+<h3>Sports & Activities</h3>
+
+<p>
+Encouraging physical activity, teamwork and confidence.
+</p>
+
+</div>
+
+
+<div class="card facility-safety">
+
+<div class="icon">🛡️</div>
+
+<h3>Safe & Secure Campus</h3>
+
+<p>
+A disciplined and supervised environment for students.
+</p>
+
+</div>
+
+
+<div class="card facility-water">
+
+<div class="icon">💧</div>
+
+<h3>Clean Drinking Water</h3>
+
+<p>
+Safe drinking water facilities for students and staff.
+</p>
+
+</div>
+
+
+<div class="card facility-transport">
+
+<div class="icon">🚌</div>
+
+<h3>School Transport</h3>
+
+<p>
+Transport facilities for local routes as available.
+</p>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- =====================================
+     GALLERY
+===================================== -->
+
+<section class="gallery" id="gallery">
+
+<h2 class="section-title">
+School Gallery
+</h2>
+
+<p class="section-subtitle">
+Moments, activities and memories from Bethel Public School.
+</p>
+
+
+<div class="gallery-grid" id="galleryGrid">
+
+
+<div class="gallery-item">
+
+<img src="campus.jpg" alt="School Campus">
+
+<div class="gallery-caption">
+School Campus
+</div>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- =====================================
+     ADMISSION
+===================================== -->
+
+<section class="admission" id="admission">
+
+<h2 class="section-title">
+Online Admission Application
+</h2>
+
+<p class="section-subtitle">
+Apply online for admission from LKG to Class 8.
+</p>
+
+
+<div class="draft-banner" id="draftBanner">
+<span>📝 Aapka pehle se bhara hua draft mil gaya hai — form mein wapas bhar diya gaya hai.</span>
+<button type="button" id="clearDraftBtn">Draft hatayein</button>
+</div>
+
+
+<div class="form-error-banner" id="formErrorBanner"></div>
+
+
+<form class="admission-form" id="admissionForm">
+
+
+<div class="field">
+
+<label>Student Full Name *</label>
+
+<input
+type="text"
+id="studentName"
+placeholder="Enter student name"
+required>
+
+</div>
+
+
+<div class="field">
+
+<label>Date of Birth *</label>
+
+<input
+type="date"
+id="dob"
+required>
+
+</div>
+
+
+<div class="field">
+
+<label>Class Applying For *</label>
+
+<select id="classApply" required>
+
+<option value="">
+Select Class
+</option>
+
+<option>LKG</option>
+<option>UKG</option>
+<option>Class 1</option>
+<option>Class 2</option>
+<option>Class 3</option>
+<option>Class 4</option>
+<option>Class 5</option>
+<option>Class 6</option>
+<option>Class 7</option>
+<option>Class 8</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label>Father's Name *</label>
+
+<input
+type="text"
+id="fatherName"
+placeholder="Father's name"
+required>
+
+</div>
+
+
+<div class="field">
+
+<label>Mother's Name</label>
+
+<input
+type="text"
+id="motherName"
+placeholder="Mother's name">
+
+</div>
+
+
+<div class="field">
+
+<label>Parent Mobile / WhatsApp *</label>
+
+<input
+type="tel"
+id="parentPhone"
+placeholder="10-digit mobile number"
+pattern="[0-9]{10}"
+maxlength="10"
+inputmode="numeric"
+title="Enter a 10-digit mobile number"
+required>
+
+<span class="field-hint">Bina +91 ke, sirf 10 digit likhein</span>
+
+</div>
+
+
+<div class="field full">
+
+<label>Address *</label>
+
+<textarea
+id="address"
+placeholder="Enter complete address"
+required></textarea>
+
+</div>
+
+
+<div class="field full">
+
+<button
+type="submit"
+id="submitBtn"
+class="btn btn-gold"
+style="width:100%;">
+
+Submit Admission Application
+
+</button>
+
+</div>
+
+
+</form>
+
+
+<div class="admission-success" id="admissionSuccess">
+
+<div class="success-icon">🎓</div>
+
+<h3>Thank You for Choosing Bethel Public School!</h3>
+
+<p>
+Your admission application has been successfully received.
+Our school office will review your application and contact you
+on the registered mobile number if further information is required.
+</p>
+
+<button type="button" id="submitAnotherBtn" class="btn btn-gold">
+Submit Another Application
+</button>
+
+</div>
+
+</section>
+
+
+<!-- =====================================
+     STUDENT PORTAL
+===================================== -->
+
+<section class="portal" id="portal">
+
+<h2 class="section-title">
+Student Portal
+</h2>
+
+<p class="section-subtitle">
+Students can check their attendance and examination results.
+</p>
+
+
+<div class="portal-card">
+
+<div style="font-size:45px;">
+🎓
+</div>
+
+<h3>
+Student Login
+</h3>
+
+<p style="font-size:13px;color:#777;margin-bottom:12px;">
+Attendance & Result
+</p>
+
+
+<input
+class="login-input"
+id="studentId"
+autocomplete="username"
+placeholder="Student ID / Admission No.">
+
+
+<input
+class="login-input"
+id="studentPassword"
+type="password"
+autocomplete="current-password"
+placeholder="Password">
+
+
+<button
+class="btn btn-gold"
+onclick="studentLogin()"
+style="width:100%;">
+
+Login
+
+</button>
+
+
+<!-- DEMO DASHBOARD -->
+
+<div
+class="student-dashboard"
+id="studentDashboard">
+
+
+<h3 style="margin-top:20px;">
+Welcome, Student
+</h3>
+
+
+<!-- ATTENDANCE -->
+
+<div class="dashboard-card">
+
+<h3>
+📅 Attendance
+</h3>
+
+<br>
+
+<p>
+<strong>Attendance:</strong> 82%
+</p>
+
+<p>
+<strong>Required:</strong> 80%
+</p>
+
+
+<div class="progress">
+
+<div class="progress-bar">
+</div>
+
+</div>
+
+
+<p style="color:#2E8540;font-weight:700;">
+✓ Attendance requirement currently met
+</p>
+
+</div>
+
+
+<!-- RESULT -->
+
+<div class="dashboard-card">
+
+<h3>
+📊 Examination Result
+</h3>
+
+
+<table class="result-table">
+
+<tr>
+
+<th>
+Subject
+</th>
+
+<th>
+Marks
+</th>
+
+<th>
+Grade
+</th>
+
+</tr>
+
+
+<tr>
+
+<td>
+English
+</td>
+
+<td>
+78/100
+</td>
+
+<td>
+A
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+Mathematics
+</td>
+
+<td>
+82/100
+</td>
+
+<td>
+A
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+Science
+</td>
+
+<td>
+75/100
+</td>
+
+<td>
+A
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+Social Science
+</td>
+
+<td>
+80/100
+</td>
+
+<td>
+A
+</td>
+
+</tr>
+
+
+</table>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================
+     CONTACT + MAP
+===================================== -->
+
+<section class="contact" id="contact">
+
+<h2 class="section-title">
+Contact & Location
+</h2>
+
+<p class="section-subtitle">
+Visit Bethel Public School, Kasturi, Nagarnar.
+</p>
+
+
+<div class="contact-card">
+
+<h2 style="color:var(--blue);">
+Bethel Public School
+</h2>
+
+
+<p class="address">
+📍 KASTURI, Nagarnar, Chhattisgarh 494001
+</p>
+
+
+<div class="plus-code">
+📍 Plus Code: 35VJ+JWX
+</div>
+
+
+<p style="margin-top:12px;">
+Nagarnar, Bastar, Chhattisgarh
+</p>
+
+
+<a
+href="https://www.google.com/maps/search/?api=1&query=35VJ%2BJWX%2C%20Nagarnar%2C%20Chhattisgarh%20494001"
+target="_blank"
+class="btn btn-gold map-btn">
+
+📍 Open School Location in Google Maps
+
+</a>
+
+
+</div>
+
+</section>
+
+
+<!-- =====================================
+     FOOTER
+===================================== -->
+
+<footer>
+
+<p>
+© 2026 <strong>Bethel Public School</strong>,
+Kasturi, Nagarnar, Chhattisgarh 494001.
+</p>
+
+<p style="margin-top:6px;">
+Nurturing Excellence, Shaping Futures.
+</p>
+
+</footer>
+
+
+<!-- =====================================
+     ADMIN PANEL MODAL
+===================================== -->
+
+<div class="admin-modal" id="adminModal">
+
+
+<div class="admin-box">
+
+
+<div class="admin-header">
+
+<h2>
+🔐 Admin Panel
+</h2>
+
+<button
+class="close-admin"
+onclick="closeAdminModal()">
+
+×
+</button>
+
+</div>
+
+
+<div id="adminLogin">
+
+
+<p style="color:#666;font-size:14px;">
+Admin access is restricted.
+</p>
+
+
+<div class="admin-error" id="adminError"></div>
+
+
+<input
+type="email"
+id="adminEmail"
+class="admin-input"
+autocomplete="username"
+placeholder="Admin Email">
+
+
+<input
+type="password"
+id="adminPassword"
+class="admin-input"
+autocomplete="current-password"
+placeholder="Enter Admin Password">
+
+
+<button
+class="btn btn-gold"
+style="width:100%;"
+id="adminLoginBtn">
+
+Login to Admin Panel
+
+</button>
+
+</div>
+
+
+<!-- ADMIN DASHBOARD -->
+
+<div
+class="admin-manager"
+id="adminManager">
+
+
+<div class="admin-topbar">
+<span id="adminEmailLabel"></span>
+<button class="btn-logout" id="adminLogoutBtn">Logout</button>
+</div>
+
+
+<h3 style="color:var(--blue);">
+📋 Admission Applications
+<span class="app-count-badge" id="appCount">0</span>
+</h3>
+
+
+<div class="app-table-wrapper">
+
+<table class="app-table">
+
+<thead>
+<tr>
+<th>Student</th>
+<th>Class</th>
+<th>Parents</th>
+<th>Phone</th>
+<th>Address</th>
+<th>Submitted</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody id="applicationsTableBody">
+<tr><td colspan="7" style="text-align:center;">Loading applications...</td></tr>
+</tbody>
+
+</table>
+
+</div>
+
+
+<hr class="admin-divider">
+
+
+<div class="admin-note">
+
+<strong>Gallery Manager (Demo)</strong><br>
+
+Add school photos here for preview. This section is still a
+local, browser-only demo — photos here do NOT get saved to
+any server and will disappear on refresh. Permanent Firebase
+Storage will be connected in a later phase.
+
+</div>
+
+
+<label>
+Select School Photo
+</label>
+
+<input
+type="file"
+id="photoUpload"
+class="admin-input"
+accept="image/*">
+
+
+<label>
+Photo Title
+</label>
+
+<input
+type="text"
+id="photoTitle"
+class="admin-input"
+placeholder="Example: Annual Function">
+
+
+<button
+class="btn btn-gold"
+style="width:100%;"
+onclick="addGalleryPhoto()">
+
+➕ Add Photo to Gallery
+
+</button>
+
+
+<button
+class="btn"
+style="width:100%;background:#edf1f4;color:#333;margin-top:8px;"
+onclick="closeAdminModal()">
+
+Close Admin Panel
+
+</button>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<script>
+
+/*=====================================
+   MOBILE MENU
+===================================== */
+
+const menuBtn =
+document.getElementById("menuBtn");
+
+const navLinks =
+document.getElementById("navLinks");
+
+
+menuBtn.addEventListener("click",function(){
+
+    navLinks.classList.toggle("active");
+
+});
+
+
+document
+.querySelectorAll(".nav-links a")
+.forEach(function(link){
+
+    link.addEventListener("click",function(){
+
+        navLinks.classList.remove("active");
+
+    });
+
+});
+
+
+/* =====================================
+   ADMIN PANEL
+===================================== */
+
+function openAdminModal(){
+
+    document
+    .getElementById("adminModal")
+    .classList.add("show");
+
+}
+
+
+function closeAdminModal(){
+
+    document
+    .getElementById("adminModal")
+    .classList.remove("show");
+
+}
+
+
+/*
+   Admin login is now handled by real Firebase Authentication
+   in the module script near the end of this file — see
+   "ADMIN AUTH + APPLICATIONS DASHBOARD" section.
+*/
+
+
+/* =====================================
+   GALLERY PHOTO ADD
+===================================== */
+
+function addGalleryPhoto(){
+
+    const fileInput =
+    document.getElementById("photoUpload");
+
+    const title =
+    document.getElementById("photoTitle").value.trim();
+
+
+    if(fileInput.files.length === 0){
+
+        alert("Please select a school photo.");
+
+        return;
+
+    }
+
+
+    if(title === ""){
+
+        alert("Please enter a photo title.");
+
+        return;
+
+    }
+
+
+    const file =
+    fileInput.files[0];
+
+
+    /*
+       URL.createObjectURL is used instead of FileReader/base64
+       because it avoids the ~33% size increase of base64 encoding
+       and is much faster for large photos.
+
+       NOTE: this still does NOT persist across a page refresh —
+       nothing is saved to a server yet. That will only be fixed
+       once the backend (Firebase) is connected.
+    */
+
+    const imageUrl =
+    URL.createObjectURL(file);
+
+
+    const gallery =
+    document.getElementById("galleryGrid");
+
+
+    const item =
+    document.createElement("div");
+
+
+    item.className="gallery-item";
+
+
+    item.innerHTML=`
+
+        <img
+        src="${imageUrl}"
+        alt="${title}">
+
+        <div class="gallery-caption">
+        ${title}
+        </div>
+
+    `;
+
+
+    gallery.appendChild(item);
+
+
+    /* release the blob once the image has actually loaded,
+       to avoid holding memory for longer than needed */
+
+    const imgEl =
+    item.querySelector("img");
+
+    imgEl.addEventListener("load",function(){
+
+        URL.revokeObjectURL(imageUrl);
+
+    });
+
+
+    alert(
+    "Photo successfully added to Gallery in TEST MODE."
+    );
+
+
+    fileInput.value="";
+
+    document
+    .getElementById("photoTitle")
+    .value="";
+
+}
+
+
+/* =====================================
+   STUDENT LOGIN - DEMO
+===================================== */
+
+function studentLogin(){
+
+    const id =
+    document.getElementById("studentId").value.trim();
+
+    const password =
+    document.getElementById("studentPassword").value.trim();
+
+
+    if(id === "" || password === ""){
+
+        alert(
+        "Please enter Student ID and Password."
+        );
+
+        return;
+
+    }
+
+
+    document
+    .getElementById("studentDashboard")
+    .style.display="block";
+
+
+    alert("Demo Student Login Successful.");
+
+}
+
+
+/*
+   Admission form submission is now handled by real Firestore
+   writes in the module script near the end of this file — see
+   "ADMISSION FORM: DRAFT-SAVE + REAL SUBMIT" section.
+*/
+
+
+/* =====================================
+   CLOSE ADMIN WHEN OUTSIDE IS TOUCHED
+===================================== */
+
+document
+.getElementById("adminModal")
+.addEventListener("click",function(e){
+
+    if(e.target === this){
+
+        closeAdminModal();
+
+    }
+
+});
+
+
+/* =====================================
+   ADMISSION FORM: DRAFT-SAVE (always runs,
+   independent of Firebase, so a slow/failed
+   network never loses what the student typed)
+===================================== */
+
+const DRAFT_KEY = "bps_admission_draft";
+
+const admissionForm    = document.getElementById("admissionForm");
+const submitBtn         = document.getElementById("submitBtn");
+const draftBanner       = document.getElementById("draftBanner");
+const clearDraftBtn     = document.getElementById("clearDraftBtn");
+const errorBanner       = document.getElementById("formErrorBanner");
+const successScreen     = document.getElementById("admissionSuccess");
+const submitAnotherBtn  = document.getElementById("submitAnotherBtn");
+
+const draftFieldIds = [
+    "studentName","dob","classApply",
+    "fatherName","motherName","parentPhone","address"
+];
+
+function saveDraft(){
+
+    const draft = {};
+
+    draftFieldIds.forEach(function(id){
+        draft[id] = document.getElementById(id).value;
+    });
+
+    try{
+        localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+    }catch(e){
+        /* storage unavailable (private browsing etc.) — safe to ignore */
+    }
+
+}
+
+function loadDraft(){
+
+    let draft = null;
+
+    try{
+        const raw = localStorage.getItem(DRAFT_KEY);
+        if(raw) draft = JSON.parse(raw);
+    }catch(e){
+        draft = null;
+    }
+
+    if(!draft) return;
+
+    const hasAnyValue = draftFieldIds.some(function(id){
+        return draft[id];
+    });
+
+    if(!hasAnyValue) return;
+
+    draftFieldIds.forEach(function(id){
+        if(draft[id]) document.getElementById(id).value = draft[id];
+    });
+
+    draftBanner.classList.add("show");
+
+}
+
+function clearDraft(){
+
+    try{
+        localStorage.removeItem(DRAFT_KEY);
+    }catch(e){}
+
+    draftBanner.classList.remove("show");
+
+}
+
+clearDraftBtn.addEventListener("click",function(){
+
+    admissionForm.reset();
+    clearDraft();
+
+});
+
+draftFieldIds.forEach(function(id){
+
+    document.getElementById(id).addEventListener("input",saveDraft);
+
+});
+
+loadDraft();
+
+
+function showFormError(message){
+
+    errorBanner.textContent = message;
+    errorBanner.classList.add("show");
+
+}
+
+function hideFormError(){
+
+    errorBanner.classList.remove("show");
+
+}
+
+
+/* =====================================
+   ADMISSION FORM: REAL SUBMIT
+   Delegates the actual database write to
+   window.bpsFirebaseSubmit (defined by the
+   Firebase module script). If that module
+   hasn't loaded yet (very poor connection),
+   we fail gracefully WITHOUT losing the draft.
+===================================== */
+
+admissionForm.addEventListener("submit",async function(e){
+
+    e.preventDefault();
+
+    hideFormError();
+
+    if(typeof window.bpsFirebaseSubmit !== "function"){
+
+        showFormError(
+            "Could not connect right now — this is usually a slow or " +
+            "interrupted network connection. Your filled details are " +
+            "safely saved on this device, nothing is lost. Please check " +
+            "your internet connection and press Submit again."
+        );
+
+        return;
+
+    }
+
+    const fields = {
+        studentName  : document.getElementById("studentName").value.trim(),
+        dob          : document.getElementById("dob").value,
+        classApply   : document.getElementById("classApply").value,
+        fatherName   : document.getElementById("fatherName").value.trim(),
+        motherName   : document.getElementById("motherName").value.trim(),
+        parentPhone  : document.getElementById("parentPhone").value.trim(),
+        address      : document.getElementById("address").value.trim()
+    };
+
+    submitBtn.disabled  = true;
+    submitBtn.innerText = "Submitting...";
+
+    const result = await window.bpsFirebaseSubmit(fields);
+
+    submitBtn.disabled  = false;
+    submitBtn.innerText = "Submit Admission Application";
+
+    if(result.ok){
+
+        clearDraft();
+
+        admissionForm.style.display = "none";
+        draftBanner.classList.remove("show");
+        successScreen.classList.add("show");
+
+    }else if(result.code === "duplicate"){
+
+        showFormError(
+            "Application Already Received — an application for this " +
+            "student in this class is already registered. Please " +
+            "contact the school office if you need to make any changes."
+        );
+
+    }else{
+
+        showFormError(
+            "Submission failed — this is usually due to a slow or " +
+            "interrupted network connection. Your filled details have " +
+            "NOT been lost; they are saved on this device. Please check " +
+            "your connection and press Submit again."
+        );
+
+    }
+
+});
+
+
+submitAnotherBtn.addEventListener("click",function(){
+
+    admissionForm.reset();
+    admissionForm.style.display = "grid";
+    successScreen.classList.remove("show");
+
+});
+
+</script>
+
+
+<!-- =====================================
+     FIREBASE (Firestore + Authentication)
+===================================== -->
+
+<script type="module">
+
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+
+import {
+    getFirestore,
+    collection,
+    doc,
+    setDoc,
+    deleteDoc,
+    query,
+    orderBy,
+    onSnapshot,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+
+import {
+    getAuth,
+    signInWithEmailAndPassword,
+    signOut,
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+
+/* =====================================
+   CONFIG
+===================================== */
+
+const firebaseConfig = {
+    apiKey: "AIzaSyB9cpkMgt2wM1jQ1ZeK6SPw7b7heP2KN3w",
+    authDomain: "bethel-public-school.firebaseapp.com",
+    projectId: "bethel-public-school",
+    storageBucket: "bethel-public-school.firebasestorage.app",
+    messagingSenderId: "797051716246",
+    appId: "1:797051716246:web:ca3544795c004cf54f78b7"
+};
+
+const app  = initializeApp(firebaseConfig);
+const db   = getFirestore(app);
+const auth = getAuth(app);
+
+
+/* =====================================
+   HELPERS
+===================================== */
+
+function slugify(text){
+
+    return text
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g,"-")
+    .replace(/(^-+|-+$)/g,"");
+
+}
+
+// Deterministic ID from Name + DOB + Class.
+// If the SAME student applies to the SAME class again, this
+// produces the SAME document ID — Firestore then treats the
+// write as an "update" (since the doc already exists), and our
+// security rules deny all updates. This blocks duplicates
+// WITHOUT needing any public read permission.
+
+function makeApplicationId(name,dob,cls){
+
+    return slugify(name) + "_" + slugify(dob) + "_" + slugify(cls);
+
+}
+
+
+/* =====================================
+   ADMISSION FORM: REAL FIRESTORE SUBMIT
+   (draft-saving lives in the classic script
+    above, so it works even if this module
+    fails to load on a very poor connection)
+===================================== */
+
+// Exposed on window so the always-running classic script can
+// call it without caring whether Firebase loaded successfully.
+window.bpsFirebaseSubmit = async function(fields){
+
+    const applicationId = makeApplicationId(
+        fields.studentName, fields.dob, fields.classApply
+    );
+
+    try{
+
+        await setDoc(
+            doc(db,"admissions",applicationId),
+            {
+                studentFullName : fields.studentName,
+                dob             : fields.dob,
+                applyingClass   : fields.classApply,
+                fatherName      : fields.fatherName,
+                motherName      : fields.motherName,
+                parentPhone     : fields.parentPhone,
+                address         : fields.address,
+                submittedAt     : serverTimestamp()
+            }
+        );
+
+        return { ok:true };
+
+    }catch(err){
+
+        if(err.code === "permission-denied"){
+            return { ok:false, code:"duplicate" };
+        }
+
+        return { ok:false, code:"network" };
+
+    }
+
+};
+
+// Lets the classic script know Firebase actually finished loading.
+window.bpsFirebaseReady = true;
+
+
+/* =====================================
+   ADMIN AUTH + APPLICATIONS DASHBOARD
+===================================== */
+
+const adminLoginView   = document.getElementById("adminLogin");
+const adminManagerView = document.getElementById("adminManager");
+const adminEmailInput  = document.getElementById("adminEmail");
+const adminPassInput   = document.getElementById("adminPassword");
+const adminLoginBtn    = document.getElementById("adminLoginBtn");
+const adminLogoutBtn   = document.getElementById("adminLogoutBtn");
+const adminErrorBox    = document.getElementById("adminError");
+const adminEmailLabel  = document.getElementById("adminEmailLabel");
+const appsTableBody    = document.getElementById("applicationsTableBody");
+const appCountBadge    = document.getElementById("appCount");
+
+let unsubscribeApplications = null;
+
+function showAdminError(message){
+
+    adminErrorBox.textContent = message;
+    adminErrorBox.classList.add("show");
+
+}
+
+function hideAdminError(){
+
+    adminErrorBox.classList.remove("show");
+
+}
+
+adminLoginBtn.addEventListener("click",async function(){
+
+    hideAdminError();
+
+    const email    = adminEmailInput.value.trim();
+    const password = adminPassInput.value;
+
+    if(!email || !password){
+
+        showAdminError("Please enter both email and password.");
+        return;
+
+    }
+
+    adminLoginBtn.disabled  = true;
+    adminLoginBtn.innerText = "Logging in...";
+
+    try{
+
+        await signInWithEmailAndPassword(auth,email,password);
+        adminPassInput.value = "";
+
+    }catch(err){
+
+        if(err.code === "auth/invalid-credential" ||
+           err.code === "auth/wrong-password" ||
+           err.code === "auth/user-not-found"){
+
+            showAdminError("Incorrect email or password.");
+
+        }else if(err.code === "auth/too-many-requests"){
+
+            showAdminError("Too many attempts. Please try again later.");
+
+        }else{
+
+            showAdminError("Login failed. Please check your connection.");
+
+        }
+
+    }finally{
+
+        adminLoginBtn.disabled  = false;
+        adminLoginBtn.innerText = "Login to Admin Panel";
+
+    }
+
+});
+
+
+adminLogoutBtn.addEventListener("click",async function(){
+
+    if(unsubscribeApplications){
+        unsubscribeApplications();
+        unsubscribeApplications = null;
+    }
+
+    await signOut(auth);
+
+});
+
+
+function formatTimestamp(ts){
+
+    if(!ts || !ts.toDate) return "—";
+
+    return ts.toDate().toLocaleString("en-IN",{
+        day:"2-digit", month:"short", year:"numeric",
+        hour:"2-digit", minute:"2-digit"
+    });
+
+}
+
+function startApplicationsListener(){
+
+    const q = query(
+        collection(db,"admissions"),
+        orderBy("submittedAt","desc")
+    );
+
+    unsubscribeApplications = onSnapshot(q,function(snapshot){
+
+        appCountBadge.textContent = snapshot.size;
+
+        if(snapshot.empty){
+
+            appsTableBody.innerHTML =
+            '<tr><td colspan="7" style="text-align:center;">No applications received yet.</td></tr>';
+
+            return;
+
+        }
+
+        appsTableBody.innerHTML = "";
+
+        snapshot.forEach(function(docSnap){
+
+            const data = docSnap.data();
+
+            const tr = document.createElement("tr");
+
+            tr.innerHTML = `
+                <td><strong>${data.studentFullName || ""}</strong><br>
+                    <small>DOB: ${data.dob || "—"}</small></td>
+                <td>${data.applyingClass || ""}</td>
+                <td>F: ${data.fatherName || ""}<br>M: ${data.motherName || "—"}</td>
+                <td>${data.parentPhone || ""}</td>
+                <td>${data.address || ""}</td>
+                <td>${formatTimestamp(data.submittedAt)}</td>
+                <td><button class="btn-del" data-id="${docSnap.id}">Delete</button></td>
+            `;
+
+            appsTableBody.appendChild(tr);
+
+        });
+
+        appsTableBody.querySelectorAll(".btn-del").forEach(function(btn){
+
+            btn.addEventListener("click",async function(){
+
+                const docId = btn.getAttribute("data-id");
+
+                if(confirm("Are you sure you want to delete this application?")){
+
+                    try{
+                        await deleteDoc(doc(db,"admissions",docId));
+                    }catch(err){
+                        alert("Could not delete — please try again.");
+                    }
+
+                }
+
+            });
+
+        });
+
+    },function(error){
+
+        appsTableBody.innerHTML =
+        '<tr><td colspan="7" style="text-align:center;color:#c0392b;">Could not load applications.</td></tr>';
+
+    });
+
+}
+
+
+onAuthStateChanged(auth,function(user){
+
+    if(user){
+
+        adminLoginView.style.display = "none";
+        adminManagerView.classList.add("show");
+        adminEmailLabel.textContent = "Logged in as " + user.email;
+
+        startApplicationsListener();
+
+    }else{
+
+        if(unsubscribeApplications){
+            unsubscribeApplications();
+            unsubscribeApplications = null;
+        }
+
+        adminLoginView.style.display = "block";
+        adminManagerView.classList.remove("show");
+        adminEmailInput.value = "";
+        adminPassInput.value  = "";
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
