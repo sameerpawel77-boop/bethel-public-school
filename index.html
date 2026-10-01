@@ -811,6 +811,59 @@ section{
     margin:26px 0;
 }
 
+.class-chip-list{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    min-height:34px;
+}
+
+.class-chip{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    background:#EAF4FF;
+    border:1px solid #c7dfef;
+    color:var(--blue);
+    font-size:12.5px;
+    font-weight:600;
+    padding:6px 8px 6px 12px;
+    border-radius:20px;
+}
+
+.class-chip button{
+    background:#fff;
+    border:0;
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    color:#c0392b;
+    font-size:12px;
+    font-weight:700;
+    line-height:1;
+    cursor:pointer;
+}
+
+.admin-filter-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-top:14px;
+    flex-wrap:wrap;
+}
+
+.admin-filter-row label{
+    font-size:13px;
+    font-weight:600;
+    color:#475569;
+    white-space:nowrap;
+}
+
+.admin-filter-row select{
+    width:auto;
+    min-width:160px;
+}
+
 .app-table-wrapper{
     overflow-x:auto;
     margin-top:12px;
@@ -1505,8 +1558,8 @@ Apply online for admission from LKG to Class 8.
 
 
 <div class="draft-banner" id="draftBanner">
-<span>📝 Aapka pehle se bhara hua draft mil gaya hai — form mein wapas bhar diya gaya hai.</span>
-<button type="button" id="clearDraftBtn">Draft hatayein</button>
+<span>📝 We found a saved draft of your application and restored it below.</span>
+<button type="button" id="clearDraftBtn">Clear Draft</button>
 </div>
 
 
@@ -1523,8 +1576,12 @@ Apply online for admission from LKG to Class 8.
 <input
 type="text"
 id="studentName"
-placeholder="Enter student name"
+placeholder="ENTER NAME IN CAPITAL LETTERS"
+autocapitalize="characters"
+style="text-transform:uppercase;"
 required>
+
+<span class="field-hint">Please use CAPITAL LETTERS (e.g. RAHUL KUMAR)</span>
 
 </div>
 
@@ -1606,7 +1663,7 @@ inputmode="numeric"
 title="Enter a 10-digit mobile number"
 required>
 
-<span class="field-hint">Bina +91 ke, sirf 10 digit likhein</span>
+<span class="field-hint">10 digits only, without +91</span>
 
 </div>
 
@@ -1983,6 +2040,10 @@ type="email"
 id="adminEmail"
 class="admin-input"
 autocomplete="username"
+autocapitalize="off"
+autocorrect="off"
+spellcheck="false"
+style="text-transform:lowercase;"
 placeholder="Admin Email">
 
 
@@ -2025,6 +2086,24 @@ id="adminManager">
 </h3>
 
 
+<div class="admin-filter-row">
+<label for="classFilter">Filter by Class:</label>
+<select id="classFilter" class="admin-input" style="margin:0;">
+<option value="all">All Classes</option>
+<option value="LKG">LKG</option>
+<option value="UKG">UKG</option>
+<option value="Class 1">Class 1</option>
+<option value="Class 2">Class 2</option>
+<option value="Class 3">Class 3</option>
+<option value="Class 4">Class 4</option>
+<option value="Class 5">Class 5</option>
+<option value="Class 6">Class 6</option>
+<option value="Class 7">Class 7</option>
+<option value="Class 8">Class 8</option>
+</select>
+</div>
+
+
 <div class="app-table-wrapper">
 
 <table class="app-table">
@@ -2048,6 +2127,45 @@ id="adminManager">
 </table>
 
 </div>
+
+
+<hr class="admin-divider">
+
+
+<h3 style="color:var(--blue);">
+🏫 Manage Classes
+<span class="app-count-badge" id="classCount">0</span>
+</h3>
+
+<p style="font-size:12.5px;color:#687585;margin-bottom:10px;">
+Classes added here automatically appear in the Admission Form's
+class dropdown and in Student/Teacher management. No code changes
+needed to add a new class (e.g. Class 9, Class 10) in the future.
+</p>
+
+<div id="classListContainer" class="class-chip-list">
+Loading classes...
+</div>
+
+<div class="admin-filter-row" style="margin-top:14px;">
+<input
+type="text"
+id="newClassName"
+class="admin-input"
+style="margin:0;"
+placeholder="New class name (e.g. Class 9)">
+<button type="button" class="btn btn-gold" id="addClassBtn" style="margin:0;">Add Class</button>
+</div>
+
+<div class="admin-error" id="classError" style="margin-top:10px;"></div>
+
+<button
+type="button"
+id="seedDefaultClassesBtn"
+class="btn"
+style="width:100%;background:#edf1f4;color:#333;margin-top:12px;">
+Load Default Classes (LKG – Class 8)
+</button>
 
 
 <hr class="admin-divider">
@@ -2425,6 +2543,17 @@ draftFieldIds.forEach(function(id){
 
 });
 
+// Student Full Name is actually stored in CAPITAL LETTERS, not just
+// displayed that way — keeps data consistent for admin records and
+// for the future Student Login (Name + DOB + Class) lookup.
+document.getElementById("studentName").addEventListener("input",function(e){
+
+    const cursorPos = e.target.selectionStart;
+    e.target.value = e.target.value.toUpperCase();
+    e.target.setSelectionRange(cursorPos,cursorPos);
+
+});
+
 loadDraft();
 
 
@@ -2548,6 +2677,7 @@ import {
     query,
     orderBy,
     onSnapshot,
+    getDocs,
     serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 
@@ -2656,6 +2786,214 @@ window.bpsFirebaseReady = true;
 
 
 /* =====================================
+   PUBLIC: DYNAMIC CLASS LIST FOR ADMISSION FORM
+   If this fails or the "classes" collection is empty, the
+   hardcoded fallback <option> list already in the HTML stays
+   as-is — the admission form keeps working either way.
+===================================== */
+
+(async function populateClassDropdown(){
+
+    try{
+
+        const q = query(
+            collection(db,"classes"),
+            orderBy("sortOrder","asc")
+        );
+
+        const snapshot = await getDocs(q);
+
+        if(snapshot.empty) return; // keep fallback options
+
+        const classSelect = document.getElementById("classApply");
+
+        classSelect.innerHTML = '<option value="">Select Class</option>';
+
+        snapshot.forEach(function(docSnap){
+
+            const option = document.createElement("option");
+            option.value       = docSnap.data().name;
+            option.textContent = docSnap.data().name;
+            classSelect.appendChild(option);
+
+        });
+
+    }catch(err){
+
+        // network issue, offline, etc. — fallback options remain untouched
+
+    }
+
+})();
+
+
+/* =====================================
+   ADMIN: MANAGE CLASSES
+===================================== */
+
+const classListContainer    = document.getElementById("classListContainer");
+const newClassNameInput     = document.getElementById("newClassName");
+const addClassBtn           = document.getElementById("addClassBtn");
+const classErrorBox         = document.getElementById("classError");
+const classCountBadge       = document.getElementById("classCount");
+const seedDefaultClassesBtn = document.getElementById("seedDefaultClassesBtn");
+
+let unsubscribeClasses = null;
+
+function showClassError(message){
+    classErrorBox.textContent = message;
+    classErrorBox.classList.add("show");
+}
+
+function hideClassError(){
+    classErrorBox.classList.remove("show");
+}
+
+function startClassesListener(){
+
+    const q = query(
+        collection(db,"classes"),
+        orderBy("sortOrder","asc")
+    );
+
+    unsubscribeClasses = onSnapshot(q,function(snapshot){
+
+        classCountBadge.textContent = snapshot.size;
+
+        if(snapshot.empty){
+            classListContainer.innerHTML =
+            '<span style="font-size:12.5px;color:#687585;">No classes yet — add one below, or load the defaults.</span>';
+            return;
+        }
+
+        classListContainer.innerHTML = "";
+
+        snapshot.forEach(function(docSnap){
+
+            const data = docSnap.data();
+
+            const chip = document.createElement("span");
+            chip.className = "class-chip";
+            chip.innerHTML = `${data.name} <button data-id="${docSnap.id}" title="Remove class">×</button>`;
+
+            classListContainer.appendChild(chip);
+
+        });
+
+        classListContainer.querySelectorAll("button").forEach(function(btn){
+
+            btn.addEventListener("click",async function(){
+
+                const classId = btn.getAttribute("data-id");
+
+                if(confirm("Remove this class? Existing students/records in it will NOT be deleted.")){
+
+                    try{
+                        await deleteDoc(doc(db,"classes",classId));
+                    }catch(err){
+                        alert("Could not remove class — please try again.");
+                    }
+
+                }
+
+            });
+
+        });
+
+    },function(error){
+
+        classListContainer.innerHTML =
+        '<span style="color:#c0392b;font-size:12.5px;">Could not load classes.</span>';
+
+    });
+
+}
+
+async function addNewClass(name){
+
+    hideClassError();
+
+    const trimmedName = name.trim();
+
+    if(!trimmedName){
+        showClassError("Please enter a class name.");
+        return;
+    }
+
+    const classId = slugify(trimmedName);
+
+    try{
+
+        // sortOrder = current timestamp so newly added classes
+        // naturally sort after existing ones
+        await setDoc(doc(db,"classes",classId),{
+            name      : trimmedName,
+            sortOrder : Date.now()
+        });
+
+        newClassNameInput.value = "";
+
+    }catch(err){
+
+        showClassError("Could not add class — please check your connection and try again.");
+
+    }
+
+}
+
+addClassBtn.addEventListener("click",function(){
+    addNewClass(newClassNameInput.value);
+});
+
+newClassNameInput.addEventListener("keydown",function(e){
+    if(e.key === "Enter"){
+        e.preventDefault();
+        addNewClass(newClassNameInput.value);
+    }
+});
+
+seedDefaultClassesBtn.addEventListener("click",async function(){
+
+    hideClassError();
+
+    const defaults = [
+        "LKG","UKG","Class 1","Class 2","Class 3",
+        "Class 4","Class 5","Class 6","Class 7","Class 8"
+    ];
+
+    seedDefaultClassesBtn.disabled  = true;
+    seedDefaultClassesBtn.innerText = "Loading...";
+
+    try{
+
+        for(let i=0;i<defaults.length;i++){
+
+            const classId = slugify(defaults[i]);
+
+            // setDoc with a deterministic ID is safe to re-run —
+            // it will not create duplicates if these already exist.
+            await setDoc(doc(db,"classes",classId),{
+                name      : defaults[i],
+                sortOrder : (i+1) * 10
+            });
+
+        }
+
+    }catch(err){
+
+        showClassError("Could not load default classes — please check your connection.");
+
+    }finally{
+
+        seedDefaultClassesBtn.disabled  = false;
+        seedDefaultClassesBtn.innerText = "Load Default Classes (LKG – Class 8)";
+
+    }
+
+});
+
+
+/* =====================================
    ADMIN AUTH + APPLICATIONS DASHBOARD
 ===================================== */
 
@@ -2689,7 +3027,7 @@ adminLoginBtn.addEventListener("click",async function(){
 
     hideAdminError();
 
-    const email    = adminEmailInput.value.trim();
+    const email    = adminEmailInput.value.trim().toLowerCase();
     const password = adminPassInput.value;
 
     if(!email || !password){
@@ -2758,6 +3096,85 @@ function formatTimestamp(ts){
 
 }
 
+const classFilter = document.getElementById("classFilter");
+
+// Holds the latest full snapshot (all classes) so switching the
+// dropdown re-renders instantly without another Firestore read.
+let latestApplications = [];
+
+function renderApplications(){
+
+    const selectedClass = classFilter.value;
+
+    const filtered = selectedClass === "all"
+        ? latestApplications
+        : latestApplications.filter(function(item){
+            return item.data.applyingClass === selectedClass;
+        });
+
+    appCountBadge.textContent = filtered.length;
+
+    if(filtered.length === 0){
+
+        appsTableBody.innerHTML =
+        '<tr><td colspan="7" style="text-align:center;">' +
+        (selectedClass === "all"
+            ? "No applications received yet."
+            : "No applications for " + selectedClass + " yet.") +
+        '</td></tr>';
+
+        return;
+
+    }
+
+    appsTableBody.innerHTML = "";
+
+    filtered.forEach(function(item){
+
+        const data = item.data;
+
+        const tr = document.createElement("tr");
+
+        tr.innerHTML = `
+            <td><strong>${data.studentFullName || ""}</strong><br>
+                <small>DOB: ${data.dob || "—"}</small></td>
+            <td>${data.applyingClass || ""}</td>
+            <td>F: ${data.fatherName || ""}<br>M: ${data.motherName || "—"}</td>
+            <td>${data.parentPhone || ""}</td>
+            <td>${data.address || ""}</td>
+            <td>${formatTimestamp(data.submittedAt)}</td>
+            <td><button class="btn-del" data-id="${item.id}">Delete</button></td>
+        `;
+
+        appsTableBody.appendChild(tr);
+
+    });
+
+    appsTableBody.querySelectorAll(".btn-del").forEach(function(btn){
+
+        btn.addEventListener("click",async function(){
+
+            const docId = btn.getAttribute("data-id");
+
+            if(confirm("Are you sure you want to delete this application?")){
+
+                try{
+                    await deleteDoc(doc(db,"admissions",docId));
+                }catch(err){
+                    alert("Could not delete — please try again.");
+                }
+
+            }
+
+        });
+
+    });
+
+}
+
+classFilter.addEventListener("change",renderApplications);
+
+
 function startApplicationsListener(){
 
     const q = query(
@@ -2767,59 +3184,13 @@ function startApplicationsListener(){
 
     unsubscribeApplications = onSnapshot(q,function(snapshot){
 
-        appCountBadge.textContent = snapshot.size;
-
-        if(snapshot.empty){
-
-            appsTableBody.innerHTML =
-            '<tr><td colspan="7" style="text-align:center;">No applications received yet.</td></tr>';
-
-            return;
-
-        }
-
-        appsTableBody.innerHTML = "";
+        latestApplications = [];
 
         snapshot.forEach(function(docSnap){
-
-            const data = docSnap.data();
-
-            const tr = document.createElement("tr");
-
-            tr.innerHTML = `
-                <td><strong>${data.studentFullName || ""}</strong><br>
-                    <small>DOB: ${data.dob || "—"}</small></td>
-                <td>${data.applyingClass || ""}</td>
-                <td>F: ${data.fatherName || ""}<br>M: ${data.motherName || "—"}</td>
-                <td>${data.parentPhone || ""}</td>
-                <td>${data.address || ""}</td>
-                <td>${formatTimestamp(data.submittedAt)}</td>
-                <td><button class="btn-del" data-id="${docSnap.id}">Delete</button></td>
-            `;
-
-            appsTableBody.appendChild(tr);
-
+            latestApplications.push({ id: docSnap.id, data: docSnap.data() });
         });
 
-        appsTableBody.querySelectorAll(".btn-del").forEach(function(btn){
-
-            btn.addEventListener("click",async function(){
-
-                const docId = btn.getAttribute("data-id");
-
-                if(confirm("Are you sure you want to delete this application?")){
-
-                    try{
-                        await deleteDoc(doc(db,"admissions",docId));
-                    }catch(err){
-                        alert("Could not delete — please try again.");
-                    }
-
-                }
-
-            });
-
-        });
+        renderApplications();
 
     },function(error){
 
@@ -2840,12 +3211,18 @@ onAuthStateChanged(auth,function(user){
         adminEmailLabel.textContent = "Logged in as " + user.email;
 
         startApplicationsListener();
+        startClassesListener();
 
     }else{
 
         if(unsubscribeApplications){
             unsubscribeApplications();
             unsubscribeApplications = null;
+        }
+
+        if(unsubscribeClasses){
+            unsubscribeClasses();
+            unsubscribeClasses = null;
         }
 
         adminLoginView.style.display = "block";
