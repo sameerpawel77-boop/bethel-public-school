@@ -2133,6 +2133,86 @@ id="adminManager">
 
 
 <h3 style="color:var(--blue);">
+🧑‍🎓 Manage Students
+<span class="app-count-badge" id="studentCount">0</span>
+</h3>
+
+<p style="font-size:12.5px;color:#687585;margin-bottom:10px;">
+Add enrolled students here (separate from admission applications
+above). Once added, a student appears for Attendance and Marks,
+and will be able to use Student Login.
+</p>
+
+<div class="admission-form" style="background:#F5F8FC;color:#273444;grid-template-columns:1fr 1fr;padding:18px;border-radius:14px;margin-bottom:14px;">
+
+<div class="field">
+<label>Student Full Name *</label>
+<input
+type="text"
+id="newStudentName"
+class="admin-input"
+style="margin:0;"
+placeholder="ENTER NAME IN CAPITAL LETTERS">
+</div>
+
+<div class="field">
+<label>Date of Birth *</label>
+<input
+type="date"
+id="newStudentDob"
+class="admin-input"
+style="margin:0;">
+</div>
+
+<div class="field">
+<label>Class *</label>
+<select id="newStudentClass" class="admin-input" style="margin:0;">
+<option value="">Select Class</option>
+</select>
+</div>
+
+<div class="field" style="justify-content:flex-end;">
+<button type="button" id="addStudentBtn" class="btn btn-gold" style="width:100%;">Add Student</button>
+</div>
+
+</div>
+
+<div class="admin-error" id="studentError"></div>
+
+<div class="admin-filter-row">
+<label for="studentClassFilter">Filter by Class:</label>
+<select id="studentClassFilter" class="admin-input" style="margin:0;">
+<option value="all">All Classes</option>
+</select>
+</div>
+
+<div class="app-table-wrapper">
+
+<table class="app-table">
+
+<thead>
+<tr>
+<th>Student</th>
+<th>DOB</th>
+<th>Class</th>
+<th>Attendance</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody id="studentsTableBody">
+<tr><td colspan="5" style="text-align:center;">Loading students...</td></tr>
+</tbody>
+
+</table>
+
+</div>
+
+
+<hr class="admin-divider">
+
+
+<h3 style="color:var(--blue);">
 🏫 Manage Classes
 <span class="app-count-badge" id="classCount">0</span>
 </h3>
@@ -2678,6 +2758,7 @@ import {
     orderBy,
     onSnapshot,
     getDocs,
+    getDoc,
     serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 
@@ -2839,6 +2920,7 @@ const classCountBadge       = document.getElementById("classCount");
 const seedDefaultClassesBtn = document.getElementById("seedDefaultClassesBtn");
 
 let unsubscribeClasses = null;
+let latestClassNamesForSelects = []; // kept in sync below, used by Manage Students' per-row class-change dropdown
 
 function showClassError(message){
     classErrorBox.textContent = message;
@@ -2863,14 +2945,18 @@ function startClassesListener(){
         if(snapshot.empty){
             classListContainer.innerHTML =
             '<span style="font-size:12.5px;color:#687585;">No classes yet — add one below, or load the defaults.</span>';
+            latestClassNamesForSelects = [];
             return;
         }
 
         classListContainer.innerHTML = "";
 
+        const classNames = [];
+
         snapshot.forEach(function(docSnap){
 
             const data = docSnap.data();
+            classNames.push(data.name);
 
             const chip = document.createElement("span");
             chip.className = "class-chip";
@@ -2879,6 +2965,48 @@ function startClassesListener(){
             classListContainer.appendChild(chip);
 
         });
+
+        // keep the "Add Student" class select and the student
+        // class-filter dropdown in sync with the live class list
+        const newStudentClassSelect = document.getElementById("newStudentClass");
+        const studentFilterSelect   = document.getElementById("studentClassFilter");
+
+        const currentNewStudentValue = newStudentClassSelect.value;
+        newStudentClassSelect.innerHTML = '<option value="">Select Class</option>';
+        classNames.forEach(function(name){
+            const opt = document.createElement("option");
+            opt.value = name; opt.textContent = name;
+            newStudentClassSelect.appendChild(opt);
+        });
+        newStudentClassSelect.value = currentNewStudentValue;
+
+        const currentFilterValue = studentFilterSelect.value;
+        studentFilterSelect.innerHTML = '<option value="all">All Classes</option>';
+        classNames.forEach(function(name){
+            const opt = document.createElement("option");
+            opt.value = name; opt.textContent = name;
+            studentFilterSelect.appendChild(opt);
+        });
+        studentFilterSelect.value = currentFilterValue || "all";
+
+        // keep the Applications "Filter by Class" dropdown in sync too
+        const appsFilterSelect = document.getElementById("classFilter");
+        const currentAppsFilterValue = appsFilterSelect.value;
+        appsFilterSelect.innerHTML = '<option value="all">All Classes</option>';
+        classNames.forEach(function(name){
+            const opt = document.createElement("option");
+            opt.value = name; opt.textContent = name;
+            appsFilterSelect.appendChild(opt);
+        });
+        appsFilterSelect.value = currentAppsFilterValue || "all";
+
+        latestClassNamesForSelects = classNames;
+
+        // re-render any already-loaded student rows so their
+        // "Promote" dropdown picks up the latest class list too
+        if(typeof renderStudents === "function" && latestStudents.length > 0){
+            renderStudents();
+        }
 
         classListContainer.querySelectorAll("button").forEach(function(btn){
 
@@ -2991,6 +3119,219 @@ seedDefaultClassesBtn.addEventListener("click",async function(){
     }
 
 });
+
+
+/* =====================================
+   ADMIN: MANAGE STUDENTS
+===================================== */
+
+const newStudentNameInput  = document.getElementById("newStudentName");
+const newStudentDobInput   = document.getElementById("newStudentDob");
+const newStudentClassInput = document.getElementById("newStudentClass");
+const addStudentBtn        = document.getElementById("addStudentBtn");
+const studentErrorBox      = document.getElementById("studentError");
+const studentCountBadge    = document.getElementById("studentCount");
+const studentClassFilter   = document.getElementById("studentClassFilter");
+const studentsTableBody    = document.getElementById("studentsTableBody");
+
+let unsubscribeStudents = null;
+let latestStudents      = [];
+
+// Student Full Name is stored in CAPITAL LETTERS here too,
+// consistent with the admission form.
+newStudentNameInput.addEventListener("input",function(e){
+    const cursorPos = e.target.selectionStart;
+    e.target.value = e.target.value.toUpperCase();
+    e.target.setSelectionRange(cursorPos,cursorPos);
+});
+
+function showStudentError(message){
+    studentErrorBox.textContent = message;
+    studentErrorBox.classList.add("show");
+}
+
+function hideStudentError(){
+    studentErrorBox.classList.remove("show");
+}
+
+function makeStudentId(name,dob){
+    return slugify(name) + "_" + slugify(dob);
+}
+
+addStudentBtn.addEventListener("click",async function(){
+
+    hideStudentError();
+
+    const name  = newStudentNameInput.value.trim();
+    const dob   = newStudentDobInput.value;
+    const cls   = newStudentClassInput.value;
+
+    if(!name || !dob || !cls){
+        showStudentError("Please fill in Name, Date of Birth and Class.");
+        return;
+    }
+
+    const studentId = makeStudentId(name,dob);
+
+    addStudentBtn.disabled  = true;
+    addStudentBtn.innerText = "Adding...";
+
+    try{
+
+        const existing = await getDoc(doc(db,"students",studentId));
+
+        if(existing.exists()){
+            showStudentError("A student with this exact Name and Date of Birth already exists.");
+            return;
+        }
+
+        await setDoc(doc(db,"students",studentId),{
+            studentFullName    : name,
+            dob                 : dob,
+            class               : cls,
+            presentCount        : 0,
+            totalClassesCount   : 0,
+            marks               : {},
+            createdAt           : serverTimestamp()
+        });
+
+        newStudentNameInput.value = "";
+        newStudentDobInput.value  = "";
+        newStudentClassInput.value = "";
+
+    }catch(err){
+
+        showStudentError("Could not add student — please check your connection and try again.");
+
+    }finally{
+
+        addStudentBtn.disabled  = false;
+        addStudentBtn.innerText = "Add Student";
+
+    }
+
+});
+
+function renderStudents(){
+
+    const selectedClass = studentClassFilter.value;
+
+    const filtered = selectedClass === "all"
+        ? latestStudents
+        : latestStudents.filter(function(item){
+            return item.data.class === selectedClass;
+        });
+
+    studentCountBadge.textContent = filtered.length;
+
+    if(filtered.length === 0){
+
+        studentsTableBody.innerHTML =
+        '<tr><td colspan="5" style="text-align:center;">' +
+        (selectedClass === "all"
+            ? "No students added yet."
+            : "No students in " + selectedClass + " yet.") +
+        '</td></tr>';
+
+        return;
+
+    }
+
+    studentsTableBody.innerHTML = "";
+
+    filtered.forEach(function(item){
+
+        const data = item.data;
+
+        const attendancePercent = data.totalClassesCount > 0
+            ? Math.round((data.presentCount / data.totalClassesCount) * 100) + "%"
+            : "—";
+
+        const tr = document.createElement("tr");
+
+        tr.innerHTML = `
+            <td><strong>${data.studentFullName || ""}</strong></td>
+            <td>${data.dob || "—"}</td>
+            <td>
+                <select class="admin-input change-class-select" data-id="${item.id}" style="margin:0;font-size:12px;padding:6px;">
+                </select>
+            </td>
+            <td>${attendancePercent}</td>
+            <td><button class="btn-del" data-id="${item.id}">Remove</button></td>
+        `;
+
+        studentsTableBody.appendChild(tr);
+
+        // populate this row's class-change select with live class list
+        const select = tr.querySelector(".change-class-select");
+        latestClassNamesForSelects.forEach(function(name){
+            const opt = document.createElement("option");
+            opt.value = name; opt.textContent = name;
+            if(name === data.class) opt.selected = true;
+            select.appendChild(opt);
+        });
+
+        select.addEventListener("change",async function(){
+
+            try{
+                await setDoc(doc(db,"students",item.id),
+                    { class: select.value },
+                    { merge: true }
+                );
+            }catch(err){
+                alert("Could not update class — please try again.");
+            }
+
+        });
+
+    });
+
+    studentsTableBody.querySelectorAll(".btn-del").forEach(function(btn){
+
+        btn.addEventListener("click",async function(){
+
+            const studentId = btn.getAttribute("data-id");
+
+            if(confirm("Remove this student? Their attendance and marks history will be deleted too.")){
+
+                try{
+                    await deleteDoc(doc(db,"students",studentId));
+                }catch(err){
+                    alert("Could not remove student — please try again.");
+                }
+
+            }
+
+        });
+
+    });
+
+}
+
+studentClassFilter.addEventListener("change",renderStudents);
+
+function startStudentsListener(){
+
+    const q = query(collection(db,"students"), orderBy("studentFullName","asc"));
+
+    unsubscribeStudents = onSnapshot(q,function(snapshot){
+
+        latestStudents = [];
+
+        snapshot.forEach(function(docSnap){
+            latestStudents.push({ id: docSnap.id, data: docSnap.data() });
+        });
+
+        renderStudents();
+
+    },function(error){
+
+        studentsTableBody.innerHTML =
+        '<tr><td colspan="5" style="text-align:center;color:#c0392b;">Could not load students.</td></tr>';
+
+    });
+
+}
 
 
 /* =====================================
@@ -3212,6 +3553,7 @@ onAuthStateChanged(auth,function(user){
 
         startApplicationsListener();
         startClassesListener();
+        startStudentsListener();
 
     }else{
 
@@ -3223,6 +3565,11 @@ onAuthStateChanged(auth,function(user){
         if(unsubscribeClasses){
             unsubscribeClasses();
             unsubscribeClasses = null;
+        }
+
+        if(unsubscribeStudents){
+            unsubscribeStudents();
+            unsubscribeStudents = null;
         }
 
         adminLoginView.style.display = "block";
