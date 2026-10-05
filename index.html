@@ -646,6 +646,16 @@ section{
     gap:16px;
 }
 
+/* Used inside the Admin modal — same grid layout as .admission-form
+   but WITHOUT backdrop-filter, which was breaking native <select>
+   dropdowns on some mobile browsers when nested inside a scrollable
+   modal. */
+.admin-mini-form{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+}
+
 .field{
     display:flex;
     flex-direction:column;
@@ -2143,7 +2153,7 @@ above). Once added, a student appears for Attendance and Marks,
 and will be able to use Student Login.
 </p>
 
-<div class="admission-form" style="background:#F5F8FC;color:#273444;grid-template-columns:1fr 1fr;padding:18px;border-radius:14px;margin-bottom:14px;">
+<div class="admin-mini-form" style="background:#F5F8FC;color:#273444;padding:18px;border-radius:14px;margin-bottom:14px;">
 
 <div class="field">
 <label>Student Full Name *</label>
