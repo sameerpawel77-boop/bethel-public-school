@@ -1375,6 +1375,140 @@ footer strong{
     }
 }
 
+
+/* =========================
+   SELECT PICKER (bottom sheet)
+   Replaces native dropdown popups in the staff panels and
+   student login, which do not open on some Android phones.
+========================= */
+
+.pick-hidden{
+    position:absolute !important;
+    opacity:0 !important;
+    pointer-events:none !important;
+    width:1px !important;
+    height:1px !important;
+    margin:0 !important;
+    padding:0 !important;
+    border:0 !important;
+}
+
+.pick-btn{
+    display:block;
+    text-align:left;
+    background-color:#fff;
+    color:#273444;
+    font-size:14px;
+    line-height:1.3;
+    cursor:pointer;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    padding:12px;
+    border:1px solid #ccd5dd;
+    border-radius:9px;
+    padding-right:30px !important;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23687585' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position:right 10px center;
+    background-size:12px 8px;
+}
+
+.pick-btn.is-placeholder{
+    color:#7b8794;
+}
+
+.pick-btn:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
+.period-row .pick-btn{
+    flex:1;
+    min-width:110px;
+    padding:10px;
+    font-size:13px;
+}
+
+.admin-filter-row .pick-btn{
+    width:auto;
+    min-width:160px;
+}
+
+.picker-overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:9000;
+    background:rgba(0,0,0,.5);
+    align-items:flex-end;
+    justify-content:center;
+}
+
+.picker-overlay.show{
+    display:flex;
+}
+
+.picker-sheet{
+    width:100%;
+    max-width:520px;
+    max-height:75vh;
+    display:flex;
+    flex-direction:column;
+    background:#fff;
+    border-radius:18px 18px 0 0;
+    padding:14px 14px 18px;
+    box-shadow:0 -10px 40px rgba(0,0,0,.25);
+}
+
+.picker-title{
+    font-weight:700;
+    color:var(--blue);
+    font-size:15px;
+    text-align:center;
+    padding:4px 0 10px;
+}
+
+.picker-list{
+    flex:1;
+    overflow-y:auto;
+    overscroll-behavior:contain;
+}
+
+.picker-option{
+    display:block;
+    width:100%;
+    text-align:left;
+    background:#fff;
+    border:0;
+    border-bottom:1px solid #eef1f4;
+    padding:14px 10px;
+    font-size:15px;
+    color:#273444;
+    cursor:pointer;
+}
+
+.picker-option.selected{
+    color:var(--blue);
+    font-weight:700;
+    background:#EAF4FF;
+}
+
+.picker-option:disabled{
+    color:#a3acb6;
+}
+
+.picker-cancel{
+    margin-top:10px;
+    background:#edf1f4;
+    border:0;
+    border-radius:10px;
+    padding:13px;
+    font-weight:700;
+    color:#333;
+    cursor:pointer;
+}
+
 </style>
 </head>
 
@@ -3284,6 +3418,190 @@ submitAnotherBtn.addEventListener("click",function(){
                 toggleCard();
             }
         });
+
+    });
+
+})();
+
+
+/* =====================================
+   SELECT PICKER
+   Replaces native dropdown popups (which fail to open on some Android
+   Chrome phones inside the admin / teacher / student panels) with a
+   simple bottom-sheet list. The original <select> stays in the page,
+   hidden, so all existing code keeps reading and writing its value.
+===================================== */
+
+(function(){
+
+    const PICKER_ROOT_IDS = ["adminModal","teacherCard","studentCard"];
+    const KEEP_CLASSES    = ["login-input","admin-input"];   // classes that only style the control
+
+    const overlay = document.createElement("div");
+    overlay.className = "picker-overlay";
+    overlay.innerHTML =
+        '<div class="picker-sheet" role="dialog" aria-modal="true">' +
+        '<div class="picker-title"></div>' +
+        '<div class="picker-list"></div>' +
+        '<button type="button" class="picker-cancel">Cancel</button>' +
+        '</div>';
+    document.body.appendChild(overlay);
+
+    const sheetTitle = overlay.querySelector(".picker-title");
+    const sheetList  = overlay.querySelector(".picker-list");
+    let activeSelect = null;
+
+    function closePicker(){
+        overlay.classList.remove("show");
+        activeSelect = null;
+    }
+
+    overlay.addEventListener("click",function(e){
+        if(e.target === overlay) closePicker();
+    });
+
+    overlay.querySelector(".picker-cancel").addEventListener("click",closePicker);
+
+    document.addEventListener("keydown",function(e){
+        if(e.key === "Escape" && activeSelect) closePicker();
+    });
+
+    function titleFor(sel){
+
+        if(sel.getAttribute("aria-label")) return sel.getAttribute("aria-label");
+
+        if(sel.classList.contains("period-subject"))      return "Choose Subject";
+        if(sel.classList.contains("period-teacher"))      return "Choose Teacher";
+        if(sel.classList.contains("change-class-select")) return "Move to Class";
+
+        if(sel.id){
+            const l = document.querySelector('label[for="' + sel.id + '"]');
+            if(l) return l.textContent.trim().replace(/:$/,"");
+        }
+
+        const field = sel.closest(".field");
+        if(field){
+            const l = field.querySelector("label");
+            if(l) return l.textContent.trim().replace(/\s*\*$/,"");
+        }
+
+        const first = sel.options[0];
+        return (first && !first.value) ? first.textContent.trim() : "Select";
+
+    }
+
+    function openPicker(sel){
+
+        activeSelect = sel;
+        sheetTitle.textContent = titleFor(sel);
+        sheetList.innerHTML = "";
+
+        Array.prototype.forEach.call(sel.options,function(opt){
+
+            const b = document.createElement("button");
+            b.type = "button";
+            b.className = "picker-option" + (opt.value === sel.value ? " selected" : "");
+            b.textContent = opt.textContent.trim() || "—";
+            if(opt.disabled) b.disabled = true;
+
+            b.addEventListener("click",function(){
+                sel.value = opt.value;
+                sel.dispatchEvent(new Event("change",{ bubbles:true }));
+                closePicker();
+            });
+
+            sheetList.appendChild(b);
+
+        });
+
+        overlay.classList.add("show");
+
+        const chosen = sheetList.querySelector(".selected");
+        if(chosen && chosen.scrollIntoView) chosen.scrollIntoView({ block:"center" });
+
+    }
+
+    const valueDesc = Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype,"value");
+    const indexDesc = Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype,"selectedIndex");
+
+    function enhanceSelect(sel){
+
+        if(sel.__pickerBtn) return;
+
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "pick-btn " + KEEP_CLASSES.filter(function(c){
+            return sel.classList.contains(c);
+        }).join(" ");
+        btn.style.cssText = sel.style.cssText;
+
+        function sync(){
+            const opt = sel.options[sel.selectedIndex];
+            btn.textContent = opt ? (opt.textContent.trim() || "Select") : "Select";
+            btn.classList.toggle("is-placeholder",!sel.value);
+            btn.disabled = sel.disabled;
+        }
+
+        // code elsewhere sets select.value directly (no event fires),
+        // so keep the visible button in step with those changes too
+        Object.defineProperty(sel,"value",{
+            configurable:true,
+            get:function(){ return valueDesc.get.call(sel); },
+            set:function(v){ valueDesc.set.call(sel,v); sync(); }
+        });
+
+        Object.defineProperty(sel,"selectedIndex",{
+            configurable:true,
+            get:function(){ return indexDesc.get.call(sel); },
+            set:function(v){ indexDesc.set.call(sel,v); sync(); }
+        });
+
+        sel.addEventListener("change",sync);
+
+        new MutationObserver(sync).observe(sel,{
+            childList:true,
+            subtree:true,
+            attributes:true,
+            attributeFilter:["disabled"]
+        });
+
+        btn.addEventListener("click",function(){
+            if(!sel.disabled) openPicker(sel);
+        });
+
+        sel.__pickerBtn = btn;
+        sel.classList.add("pick-hidden");
+        sel.insertAdjacentElement("afterend",btn);
+
+        sync();
+
+    }
+
+    function enhanceWithin(node){
+
+        if(node.nodeType !== 1) return;
+
+        if(node.tagName === "SELECT"){
+            enhanceSelect(node);
+        }else if(node.querySelectorAll){
+            node.querySelectorAll("select").forEach(enhanceSelect);
+        }
+
+    }
+
+    PICKER_ROOT_IDS.forEach(function(id){
+
+        const root = document.getElementById(id);
+        if(!root) return;
+
+        enhanceWithin(root);
+
+        // selects created later by other code (timetable rows, student rows)
+        new MutationObserver(function(mutations){
+            mutations.forEach(function(m){
+                m.addedNodes.forEach(enhanceWithin);
+            });
+        }).observe(root,{ childList:true, subtree:true });
 
     });
 
