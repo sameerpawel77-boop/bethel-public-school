@@ -6,7 +6,7 @@
 
 <title>Bethel Public School | Kasturi, Nagarnar</title>
 
-<meta name="description" content="Bethel Public School, Kasturi, Nagarnar — LKG to Class 8. Quality education, strong values and modern learning in Bastar, Chhattisgarh.">
+<meta name="description" content="Bethel Public School, Kasturi, Nagarnar — Nursery to Class 8. Quality education, strong values and modern learning in Bastar, Chhattisgarh.">
 <meta name="theme-color" content="#0B3C5D">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%93%3C/text%3E%3C/svg%3E">
 
@@ -89,7 +89,6 @@ header{
     top:0;
     z-index:2000;
     background:rgba(11,60,93,.98);
-    backdrop-filter:blur(12px);
     box-shadow:0 5px 25px rgba(0,0,0,.18);
 }
 
@@ -550,19 +549,17 @@ section{
     z-index:5000;
     background:rgba(0,0,0,.65);
     padding:20px;
-    align-items:center;
-    justify-content:center;
+    overflow-y:auto;
 }
 
 .admin-modal.show{
-    display:flex;
+    display:block;
 }
 
 .admin-box{
     width:100%;
     max-width:480px;
-    max-height:90vh;
-    overflow:auto;
+    margin:20px auto;
     background:#fff;
     border-radius:22px;
     padding:27px;
@@ -854,6 +851,68 @@ section{
     cursor:pointer;
 }
 
+.day-tabs{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin:12px 0;
+}
+
+.day-tab{
+    padding:7px 14px;
+    border-radius:20px;
+    border:1px solid #ccd5dd;
+    background:#fff;
+    font-size:12.5px;
+    font-weight:600;
+    cursor:pointer;
+    color:#475569;
+}
+
+.day-tab.active{
+    background:var(--blue);
+    color:#fff;
+    border-color:var(--blue);
+}
+
+.period-row{
+    display:flex;
+    gap:8px;
+    align-items:center;
+    margin-bottom:9px;
+    flex-wrap:wrap;
+}
+
+.period-row .period-label{
+    font-size:12px;
+    font-weight:700;
+    color:var(--blue);
+    min-width:62px;
+}
+
+.period-row select{
+    flex:1;
+    min-width:110px;
+    padding:10px;
+    border:1px solid #ccd5dd;
+    border-radius:8px;
+    outline:none;
+    font-size:13px;
+}
+
+.period-remove{
+    background:#e74c3c;
+    color:#fff;
+    border:0;
+    width:28px;
+    height:28px;
+    min-width:28px;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:14px;
+    line-height:1;
+}
+
 .admin-filter-row{
     display:flex;
     align-items:center;
@@ -934,14 +993,96 @@ section{
     background:#F5F8FC;
 }
 
-.portal-card{
-    max-width:520px;
+.portal-grid{
+    display:flex;
+    flex-wrap:wrap;
+    gap:26px;
+    justify-content:center;
+    max-width:1100px;
     margin:auto;
+    align-items:flex-start;
+}
+
+.portal-head{
+    cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+}
+
+.portal-head::after{
+    content:"▾";
+    display:block;
+    color:var(--gold);
+    font-size:20px;
+    line-height:1;
+    margin-top:6px;
+    transition:transform .25s;
+}
+
+.portal-card.open .portal-head::after{
+    transform:rotate(180deg);
+}
+
+.portal-body{
+    display:none;
+    margin-top:14px;
+}
+
+.portal-card.open .portal-body{
+    display:block;
+}
+
+.portal-card{
+    flex:1 1 420px;
+    max-width:460px;
     text-align:center;
     background:#fff;
     padding:30px;
     border-radius:20px;
     box-shadow:var(--shadow);
+}
+
+.login-help{
+    font-size:12.5px;
+    color:#687585;
+    margin-bottom:8px;
+}
+
+.login-label{
+    display:block;
+    text-align:left;
+    font-size:12px;
+    font-weight:600;
+    color:#475569;
+    margin-top:8px;
+}
+
+.student-profile-line{
+    font-size:13px;
+    color:#687585;
+    margin-bottom:4px;
+}
+
+.aadhaar-mask{
+    cursor:pointer;
+    color:var(--blue);
+    font-weight:600;
+    text-decoration:underline dotted;
+}
+
+.attendance-percent{
+    font-size:34px;
+    font-weight:700;
+    color:var(--blue);
+    font-family:var(--font-display);
+    line-height:1.1;
+}
+
+.subject-line{
+    display:flex;
+    justify-content:space-between;
+    font-size:13px;
+    padding:6px 0;
+    border-bottom:1px dashed #d9dee3;
 }
 
 .login-input{
@@ -951,6 +1092,111 @@ section{
     border:1px solid #ccd5dd;
     border-radius:9px;
     outline:none;
+}
+
+.teacher-panel{
+    display:none;
+    text-align:left;
+}
+
+.teacher-panel.active{
+    display:block;
+}
+
+.field-label{
+    display:block;
+    font-size:12px;
+    font-weight:600;
+    color:#475569;
+    margin:12px 0 4px;
+}
+
+.roster-summary{
+    font-size:13px;
+    font-weight:700;
+    color:var(--blue);
+    margin-top:12px;
+}
+
+#attRoster,
+#marksRoster{
+    margin-top:10px;
+}
+
+.roster-list{
+    border:1px solid #e1e8ed;
+    border-radius:12px;
+    overflow:hidden;
+}
+
+.roster-row{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px 14px;
+    border-bottom:1px solid #eef2f5;
+    font-size:14px;
+    cursor:pointer;
+    background:#fff;
+}
+
+.roster-row:last-child{
+    border-bottom:0;
+}
+
+.roster-row span{
+    flex:1;
+}
+
+.roster-row input[type=checkbox]{
+    width:22px;
+    height:22px;
+    accent-color:var(--green);
+    flex-shrink:0;
+}
+
+.roster-row input[type=number]{
+    width:92px;
+    padding:8px;
+    border:1px solid #ccd5dd;
+    border-radius:8px;
+    font-size:14px;
+    text-align:center;
+}
+
+.muted-note{
+    font-size:13px;
+    color:#777;
+    margin-top:10px;
+}
+
+.admin-error.success{
+    background:#e8f5e9;
+    color:#2e7d32;
+}
+
+.student-dashboard.show{
+    display:block;
+}
+
+.schedule-day{
+    text-align:left;
+    margin-top:14px;
+}
+
+.schedule-day h4{
+    color:var(--blue);
+    font-size:14px;
+    margin-bottom:5px;
+}
+
+.schedule-item{
+    font-size:13px;
+    padding:8px 11px;
+    background:#F5F8FC;
+    border-radius:8px;
+    margin-bottom:5px;
+    color:#273444;
 }
 
 .student-dashboard{
@@ -1115,7 +1361,8 @@ footer strong{
         font-size:27px;
     }
 
-    .admission-form{
+    .admission-form,
+    .admin-mini-form{
         grid-template-columns:1fr;
     }
 
@@ -1165,7 +1412,7 @@ footer strong{
 <li><a href="#facilities">Facilities</a></li>
 <li><a href="#gallery">Gallery</a></li>
 <li><a href="#admission">Admissions</a></li>
-<li><a href="#portal">Student Portal</a></li>
+<li><a href="#portal">Login</a></li>
 <li><a href="#contact">Contact</a></li>
 
 <!-- ADMIN ONLY INSIDE MENU -->
@@ -1320,9 +1567,7 @@ socially, creatively and morally.
 
 Principal<br>
 
-Bethel Public School<br>
-
-Nagarnar
+Bethel Public School, Kasturi
 
 </div>
 
@@ -1342,7 +1587,7 @@ Academics & Curriculum
 </h2>
 
 <p class="section-subtitle">
-Student-centred learning from LKG to Class 8.
+Student-centred learning from Nursery to Class 8.
 </p>
 
 
@@ -1355,7 +1600,7 @@ Student-centred learning from LKG to Class 8.
 
 <div class="icon">🧸</div>
 
-<span class="step-age">LKG – UKG</span>
+<span class="step-age">Nursery – UKG</span>
 
 <h3>
 Pre-Primary
@@ -1481,7 +1726,7 @@ Encouraging physical activity, teamwork and confidence.
 <h3>Safe & Secure Campus</h3>
 
 <p>
-A disciplined and supervised environment for students.
+A disciplined and supervised campus with CCTV surveillance for the safety of every student.
 </p>
 
 </div>
@@ -1563,7 +1808,7 @@ Online Admission Application
 </h2>
 
 <p class="section-subtitle">
-Apply online for admission from LKG to Class 8.
+Apply online for admission from Nursery to Class 8.
 </p>
 
 
@@ -1618,6 +1863,7 @@ required>
 Select Class
 </option>
 
+<option>Nursery</option>
 <option>LKG</option>
 <option>UKG</option>
 <option>Class 1</option>
@@ -1674,6 +1920,42 @@ title="Enter a 10-digit mobile number"
 required>
 
 <span class="field-hint">10 digits only, without +91</span>
+
+</div>
+
+
+<div class="field">
+
+<label>Caste *</label>
+
+<input
+type="text"
+id="caste"
+placeholder="e.g. Gond, Yadav, General"
+autocapitalize="words"
+maxlength="60"
+required>
+
+<span class="field-hint">As per the student's school records</span>
+
+</div>
+
+
+<div class="field">
+
+<label>Aadhaar Number (Optional)</label>
+
+<input
+type="text"
+id="aadhaar"
+placeholder="12-digit Aadhaar number"
+inputmode="numeric"
+maxlength="12"
+pattern="[0-9]{12}"
+autocomplete="off"
+title="Enter exactly 12 digits, or leave this empty">
+
+<span class="field-hint">Optional. Exactly 12 digits</span>
 
 </div>
 
@@ -1736,15 +2018,20 @@ Submit Another Application
 <section class="portal" id="portal">
 
 <h2 class="section-title">
-Student Portal
+Login
 </h2>
 
 <p class="section-subtitle">
-Students can check their attendance and examination results.
+Choose Student or Teacher below to log in.
 </p>
 
 
-<div class="portal-card">
+<div class="portal-grid">
+
+
+<div class="portal-card" id="studentCard">
+
+<div class="portal-head" role="button" tabindex="0" aria-expanded="false">
 
 <div style="font-size:45px;">
 🎓
@@ -1754,21 +2041,147 @@ Students can check their attendance and examination results.
 Student Login
 </h3>
 
-<p style="font-size:13px;color:#777;margin-bottom:12px;">
+<p style="font-size:13px;color:#777;margin-bottom:0;">
 Attendance & Result
 </p>
 
+</div>
+
+<div class="portal-body">
+
+<p class="login-help">
+Enter the student's details exactly as given at admission.
+</p>
+
+<div class="admin-error" id="studentLoginError"></div>
+
+<div id="studentLoginView">
+
+<label class="login-label" for="studentLoginName">Student Full Name</label>
+<input
+class="login-input"
+id="studentLoginName"
+type="text"
+autocomplete="off"
+autocapitalize="characters"
+autocorrect="off"
+spellcheck="false"
+style="text-transform:uppercase;"
+placeholder="ENTER NAME IN CAPITAL LETTERS">
+
+<label class="login-label" for="studentLoginDob">Date of Birth</label>
+<input
+class="login-input"
+id="studentLoginDob"
+type="date">
+
+<label class="login-label" for="studentLoginClass">Class</label>
+<select class="login-input" id="studentLoginClass">
+<option value="">Select Class</option>
+<option>Nursery</option>
+<option>LKG</option>
+<option>UKG</option>
+<option>Class 1</option>
+<option>Class 2</option>
+<option>Class 3</option>
+<option>Class 4</option>
+<option>Class 5</option>
+<option>Class 6</option>
+<option>Class 7</option>
+<option>Class 8</option>
+</select>
+
+<button
+class="btn btn-gold"
+id="studentLoginBtn"
+type="button"
+style="width:100%;margin-top:10px;">
+
+Login
+
+</button>
+
+</div>
+
+
+<!-- SHOWN AFTER SUCCESSFUL LOGIN -->
+
+<div class="student-dashboard" id="studentDashboard">
+
+<h3 style="margin-top:20px;" id="studentWelcomeMsg">Welcome</h3>
+
+<p class="student-profile-line" id="studentProfileLine"></p>
+
+<div class="dashboard-card">
+<h3>📅 Attendance</h3>
+<div id="studentAttendanceBody"></div>
+</div>
+
+<div class="dashboard-card">
+<h3>📊 Marks</h3>
+<div id="studentMarksBody"></div>
+</div>
+
+<button
+type="button"
+id="studentLogoutBtn"
+class="btn"
+style="width:100%;background:#edf1f4;color:#333;margin-top:14px;">
+
+Logout
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- TEACHER PORTAL CARD -->
+
+<div class="portal-card" id="teacherCard">
+
+<div class="portal-head" role="button" tabindex="0" aria-expanded="false">
+
+<div style="font-size:45px;">
+👩‍🏫
+</div>
+
+<h3>
+Teacher Login
+</h3>
+
+<p style="font-size:13px;color:#777;margin-bottom:0;">
+Manage attendance and marks for your class
+</p>
+
+</div>
+
+<div class="portal-body">
+
+
+<div class="admin-error" id="teacherError"></div>
+
+
+<div id="teacherLoginView">
 
 <input
 class="login-input"
-id="studentId"
+id="teacherEmail"
+type="email"
 autocomplete="username"
-placeholder="Student ID / Admission No.">
+autocapitalize="off"
+autocorrect="off"
+spellcheck="false"
+style="text-transform:lowercase;"
+placeholder="Teacher Email">
 
 
 <input
 class="login-input"
-id="studentPassword"
+id="teacherPassword"
 type="password"
 autocomplete="current-password"
 placeholder="Password">
@@ -1776,162 +2189,130 @@ placeholder="Password">
 
 <button
 class="btn btn-gold"
-onclick="studentLogin()"
+id="teacherLoginBtn"
 style="width:100%;">
 
 Login
 
 </button>
 
-
-<!-- DEMO DASHBOARD -->
-
-<div
-class="student-dashboard"
-id="studentDashboard">
+</div>
 
 
-<h3 style="margin-top:20px;">
-Welcome, Student
+<!-- SHOWN AFTER SUCCESSFUL LOGIN -->
+
+<div class="student-dashboard" id="teacherDashboard">
+
+<h3 style="margin-top:20px;" id="teacherWelcomeMsg">
+Welcome, Teacher
 </h3>
+
+<div class="day-tabs" id="teacherToolTabs" style="justify-content:center;">
+<button type="button" class="day-tab active" data-panel="teacherSchedulePanel">Schedule</button>
+<button type="button" class="day-tab" data-panel="teacherAttendancePanel">Attendance</button>
+<button type="button" class="day-tab" data-panel="teacherMarksPanel">Marks</button>
+</div>
+
+
+<!-- SCHEDULE -->
+
+<div class="teacher-panel active" id="teacherSchedulePanel">
+
+<div id="teacherSchedule">
+<p style="font-size:13px;color:#777;text-align:left;">Loading your schedule...</p>
+</div>
+
+</div>
 
 
 <!-- ATTENDANCE -->
 
-<div class="dashboard-card">
+<div class="teacher-panel" id="teacherAttendancePanel">
 
-<h3>
-📅 Attendance
-</h3>
+<label class="field-label" for="attClassSubject">Class &amp; Subject</label>
+<select class="login-input" id="attClassSubject">
+<option value="">Select class &amp; subject</option>
+</select>
 
-<br>
+<label class="field-label" for="attDate">Date</label>
+<input class="login-input" type="date" id="attDate">
 
-<p>
-<strong>Attendance:</strong> 82%
-</p>
+<div class="roster-summary" id="attSummary"></div>
 
-<p>
-<strong>Required:</strong> 80%
-</p>
+<div id="attRoster"></div>
+
+<button
+type="button"
+id="attMarkAllBtn"
+class="btn"
+style="display:none;width:100%;background:#edf1f4;color:#333;margin:10px 0 0;">
+Mark All Present
+</button>
+
+<div class="admin-error" id="attMessage" style="margin-top:12px;"></div>
+
+<button
+type="button"
+id="attSaveBtn"
+class="btn btn-gold"
+style="width:100%;margin:10px 0 0;"
+disabled>
+Save Attendance
+</button>
+
+</div>
 
 
-<div class="progress">
+<!-- MARKS -->
 
-<div class="progress-bar">
+<div class="teacher-panel" id="teacherMarksPanel">
+
+<label class="field-label" for="marksClassSubject">Class &amp; Subject</label>
+<select class="login-input" id="marksClassSubject">
+<option value="">Select class &amp; subject</option>
+</select>
+
+<label class="field-label" for="marksExam">Exam</label>
+<select class="login-input" id="marksExam">
+<option value="cycleTest">Cycle Test</option>
+<option value="finalExam">Final Exam</option>
+</select>
+
+<label class="field-label" for="marksMax">Maximum Marks</label>
+<input class="login-input" type="number" id="marksMax" min="1" step="any" value="100" inputmode="decimal">
+
+<div id="marksRoster"></div>
+
+<div class="admin-error" id="marksMessage" style="margin-top:12px;"></div>
+
+<button
+type="button"
+id="marksSaveBtn"
+class="btn btn-gold"
+style="width:100%;margin:10px 0 0;"
+disabled>
+Save Marks
+</button>
+
+</div>
+
+<button
+type="button"
+id="teacherLogoutBtn"
+class="btn"
+style="width:100%;background:#edf1f4;color:#333;margin-top:10px;">
+
+Logout
+
+</button>
+
 </div>
 
 </div>
 
 
-<p style="color:#2E8540;font-weight:700;">
-✓ Attendance requirement currently met
-</p>
-
 </div>
 
-
-<!-- RESULT -->
-
-<div class="dashboard-card">
-
-<h3>
-📊 Examination Result
-</h3>
-
-
-<table class="result-table">
-
-<tr>
-
-<th>
-Subject
-</th>
-
-<th>
-Marks
-</th>
-
-<th>
-Grade
-</th>
-
-</tr>
-
-
-<tr>
-
-<td>
-English
-</td>
-
-<td>
-78/100
-</td>
-
-<td>
-A
-</td>
-
-</tr>
-
-
-<tr>
-
-<td>
-Mathematics
-</td>
-
-<td>
-82/100
-</td>
-
-<td>
-A
-</td>
-
-</tr>
-
-
-<tr>
-
-<td>
-Science
-</td>
-
-<td>
-75/100
-</td>
-
-<td>
-A
-</td>
-
-</tr>
-
-
-<tr>
-
-<td>
-Social Science
-</td>
-
-<td>
-80/100
-</td>
-
-<td>
-A
-</td>
-
-</tr>
-
-
-</table>
-
-</div>
-
-
-</div>
 
 </div>
 
@@ -2100,6 +2481,7 @@ id="adminManager">
 <label for="classFilter">Filter by Class:</label>
 <select id="classFilter" class="admin-input" style="margin:0;">
 <option value="all">All Classes</option>
+<option value="Nursery">Nursery</option>
 <option value="LKG">LKG</option>
 <option value="UKG">UKG</option>
 <option value="Class 1">Class 1</option>
@@ -2254,7 +2636,141 @@ type="button"
 id="seedDefaultClassesBtn"
 class="btn"
 style="width:100%;background:#edf1f4;color:#333;margin-top:12px;">
-Load Default Classes (LKG – Class 8)
+Load Default Classes (Nursery – Class 8)
+</button>
+
+
+<hr class="admin-divider">
+
+
+<h3 style="color:var(--blue);">
+👩‍🏫 Manage Teachers
+<span class="app-count-badge" id="teacherCount">0</span>
+</h3>
+
+<p style="font-size:12.5px;color:#687585;margin-bottom:10px;">
+Only teachers listed here (and with an account created in Firebase
+Console) are recognized by the Teacher Portal. A random email cannot
+log in — the account must exist in Firebase first.
+</p>
+
+<div class="admin-mini-form" style="background:#F5F8FC;color:#273444;padding:18px;border-radius:14px;margin-bottom:14px;grid-template-columns:1fr 1fr;">
+
+<div class="field">
+<label style="font-size:12px;">Teacher Full Name</label>
+<input type="text" id="newTeacherName" placeholder="Teacher name">
+</div>
+
+<div class="field">
+<label style="font-size:12px;">Teacher Email</label>
+<input
+type="email"
+id="newTeacherEmail"
+placeholder="teacher email"
+autocapitalize="off"
+autocorrect="off"
+spellcheck="false"
+style="text-transform:lowercase;">
+</div>
+
+<div class="field full">
+<button type="button" id="addTeacherBtn" class="btn btn-gold" style="width:100%;">Add Teacher</button>
+</div>
+
+</div>
+
+<div class="admin-error" id="teacherAdminError" style="margin-top:0;margin-bottom:10px;"></div>
+
+<div class="app-table-wrapper">
+
+<table class="app-table">
+
+<thead>
+<tr>
+<th>Name</th>
+<th>Email</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody id="teachersTableBody">
+<tr><td colspan="3" style="text-align:center;">Loading teachers...</td></tr>
+</tbody>
+
+</table>
+
+</div>
+
+
+<hr class="admin-divider">
+
+
+<h3 style="color:var(--blue);">
+📘 Manage Subjects
+<span class="app-count-badge" id="subjectCount">0</span>
+</h3>
+
+<p style="font-size:12.5px;color:#687585;margin-bottom:10px;">
+Subjects added here are used when building the Timetable, so every
+class uses the same consistent subject names.
+</p>
+
+<div id="subjectListContainer" class="class-chip-list">
+Loading subjects...
+</div>
+
+<div class="admin-filter-row" style="margin-top:14px;">
+<input
+type="text"
+id="newSubjectName"
+class="admin-input"
+style="margin:0;"
+placeholder="New subject name (e.g. Mathematics)">
+<button type="button" class="btn btn-gold" id="addSubjectBtn" style="margin:0;">Add Subject</button>
+</div>
+
+<div class="admin-error" id="subjectError" style="margin-top:10px;"></div>
+
+
+<hr class="admin-divider">
+
+
+<h3 style="color:var(--blue);">
+📅 Manage Timetable
+</h3>
+
+<p style="font-size:12.5px;color:#687585;margin-bottom:10px;">
+Select a class and day, then add periods with a Subject and Teacher
+for each. Teachers will see their own schedule across all classes
+automatically after logging in.
+</p>
+
+<div class="admin-filter-row">
+<label for="timetableClassSelect">Class:</label>
+<select id="timetableClassSelect" class="admin-input" style="margin:0;">
+<option value="">Select Class</option>
+</select>
+</div>
+
+<div id="timetableDayTabs" class="day-tabs"></div>
+
+<div id="timetablePeriodsContainer" style="margin-top:14px;">
+<p style="font-size:12.5px;color:#687585;">Select a class and day above to edit its periods.</p>
+</div>
+
+<div class="admin-filter-row" style="margin-top:12px;">
+<button type="button" id="addPeriodRowBtn" class="btn" style="background:#edf1f4;color:#333;margin:0;" disabled>+ Add Period</button>
+</div>
+
+<div class="admin-error" id="timetableError" style="margin-top:10px;"></div>
+
+<button
+type="button"
+id="saveTimetableBtn"
+class="btn btn-gold"
+style="width:100%;margin-top:10px;"
+disabled>
+Save This Day's Timetable
 </button>
 
 
@@ -2488,38 +3004,10 @@ function addGalleryPhoto(){
 }
 
 
-/* =====================================
-   STUDENT LOGIN - DEMO
-===================================== */
-
-function studentLogin(){
-
-    const id =
-    document.getElementById("studentId").value.trim();
-
-    const password =
-    document.getElementById("studentPassword").value.trim();
-
-
-    if(id === "" || password === ""){
-
-        alert(
-        "Please enter Student ID and Password."
-        );
-
-        return;
-
-    }
-
-
-    document
-    .getElementById("studentDashboard")
-    .style.display="block";
-
-
-    alert("Demo Student Login Successful.");
-
-}
+/*
+   Student login now runs against the real student records in the
+   Firebase module script below ("STUDENT LOGIN").
+*/
 
 
 /*
@@ -2564,8 +3052,8 @@ const submitAnotherBtn  = document.getElementById("submitAnotherBtn");
 
 const draftFieldIds = [
     "studentName","dob","classApply",
-    "fatherName","motherName","parentPhone","address"
-];
+    "fatherName","motherName","parentPhone","caste","address"
+];   // Aadhaar is deliberately NOT saved in the browser draft
 
 function saveDraft(){
 
@@ -2644,6 +3132,11 @@ document.getElementById("studentName").addEventListener("input",function(e){
 
 });
 
+// Aadhaar: digits only, max 12 (spaces and letters are removed as typed)
+document.getElementById("aadhaar").addEventListener("input",function(e){
+    e.target.value = e.target.value.replace(/\D/g,"").slice(0,12);
+});
+
 loadDraft();
 
 
@@ -2689,6 +3182,13 @@ admissionForm.addEventListener("submit",async function(e){
 
     }
 
+    const aadhaarValue = document.getElementById("aadhaar").value.trim();
+
+    if(aadhaarValue !== "" && !/^\d{12}$/.test(aadhaarValue)){
+        showFormError("Aadhaar number must be exactly 12 digits. You can also leave it empty.");
+        return;
+    }
+
     const fields = {
         studentName  : document.getElementById("studentName").value.trim(),
         dob          : document.getElementById("dob").value,
@@ -2696,6 +3196,8 @@ admissionForm.addEventListener("submit",async function(e){
         fatherName   : document.getElementById("fatherName").value.trim(),
         motherName   : document.getElementById("motherName").value.trim(),
         parentPhone  : document.getElementById("parentPhone").value.trim(),
+        caste        : document.getElementById("caste").value.trim(),
+        aadhaar      : aadhaarValue,
         address      : document.getElementById("address").value.trim()
     };
 
@@ -2745,6 +3247,48 @@ submitAnotherBtn.addEventListener("click",function(){
 
 });
 
+
+/* =====================================
+   LOGIN SECTION: only the tapped card opens
+===================================== */
+
+(function(){
+
+    const portalCards = document.querySelectorAll(".portal-card");
+
+    portalCards.forEach(function(card){
+
+        const head = card.querySelector(".portal-head");
+
+        function toggleCard(){
+
+            const willOpen = !card.classList.contains("open");
+
+            portalCards.forEach(function(c){
+                c.classList.remove("open");
+                c.querySelector(".portal-head").setAttribute("aria-expanded","false");
+            });
+
+            if(willOpen){
+                card.classList.add("open");
+                head.setAttribute("aria-expanded","true");
+            }
+
+        }
+
+        head.addEventListener("click",toggleCard);
+
+        head.addEventListener("keydown",function(e){
+            if(e.key === "Enter" || e.key === " "){
+                e.preventDefault();
+                toggleCard();
+            }
+        });
+
+    });
+
+})();
+
 </script>
 
 
@@ -2769,6 +3313,8 @@ import {
     onSnapshot,
     getDocs,
     getDoc,
+    where,
+    deleteField,
     serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 
@@ -2797,10 +3343,27 @@ const app  = initializeApp(firebaseConfig);
 const db   = getFirestore(app);
 const auth = getAuth(app);
 
+// The ONE account that is treated as Admin. Any other authenticated
+// account (created manually in Firebase Console) is treated as a Teacher.
+const ADMIN_EMAIL = "admin@bethelschool.com";
+
 
 /* =====================================
    HELPERS
 ===================================== */
+
+// Escapes text before it is placed inside HTML, so anything a visitor
+// types into a public form can never run as code in the admin panel.
+function escapeHtml(value){
+
+    return String(value === undefined || value === null ? "" : value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#39;");
+
+}
 
 function slugify(text){
 
@@ -2844,19 +3407,24 @@ window.bpsFirebaseSubmit = async function(fields){
 
     try{
 
-        await setDoc(
-            doc(db,"admissions",applicationId),
-            {
-                studentFullName : fields.studentName,
-                dob             : fields.dob,
-                applyingClass   : fields.classApply,
-                fatherName      : fields.fatherName,
-                motherName      : fields.motherName,
-                parentPhone     : fields.parentPhone,
-                address         : fields.address,
-                submittedAt     : serverTimestamp()
-            }
-        );
+        const applicationData = {
+            studentFullName : fields.studentName,
+            dob             : fields.dob,
+            applyingClass   : fields.classApply,
+            fatherName      : fields.fatherName,
+            motherName      : fields.motherName,
+            parentPhone     : fields.parentPhone,
+            caste           : fields.caste,
+            address         : fields.address,
+            submittedAt     : serverTimestamp()
+        };
+
+        // Aadhaar is optional — stored only if the parent chose to enter it
+        if(fields.aadhaar){
+            applicationData.aadhaar = fields.aadhaar;
+        }
+
+        await setDoc(doc(db,"admissions",applicationId),applicationData);
 
         return { ok:true };
 
@@ -2896,16 +3464,20 @@ window.bpsFirebaseReady = true;
 
         if(snapshot.empty) return; // keep fallback options
 
-        const classSelect = document.getElementById("classApply");
+        ["classApply","studentLoginClass"].forEach(function(selectId){
 
-        classSelect.innerHTML = '<option value="">Select Class</option>';
+            const classSelect = document.getElementById(selectId);
 
-        snapshot.forEach(function(docSnap){
+            classSelect.innerHTML = '<option value="">Select Class</option>';
 
-            const option = document.createElement("option");
-            option.value       = docSnap.data().name;
-            option.textContent = docSnap.data().name;
-            classSelect.appendChild(option);
+            snapshot.forEach(function(docSnap){
+
+                const option = document.createElement("option");
+                option.value       = docSnap.data().name;
+                option.textContent = docSnap.data().name;
+                classSelect.appendChild(option);
+
+            });
 
         });
 
@@ -3010,6 +3582,17 @@ function startClassesListener(){
         });
         appsFilterSelect.value = currentAppsFilterValue || "all";
 
+        // keep the Timetable class selector in sync too
+        const timetableClassSelect = document.getElementById("timetableClassSelect");
+        const currentTimetableClassValue = timetableClassSelect.value;
+        timetableClassSelect.innerHTML = '<option value="">Select Class</option>';
+        classNames.forEach(function(name){
+            const opt = document.createElement("option");
+            opt.value = name; opt.textContent = name;
+            timetableClassSelect.appendChild(opt);
+        });
+        timetableClassSelect.value = currentTimetableClassValue || "";
+
         latestClassNamesForSelects = classNames;
 
         // re-render any already-loaded student rows so their
@@ -3095,7 +3678,7 @@ seedDefaultClassesBtn.addEventListener("click",async function(){
     hideClassError();
 
     const defaults = [
-        "LKG","UKG","Class 1","Class 2","Class 3",
+        "Nursery","LKG","UKG","Class 1","Class 2","Class 3",
         "Class 4","Class 5","Class 6","Class 7","Class 8"
     ];
 
@@ -3124,7 +3707,7 @@ seedDefaultClassesBtn.addEventListener("click",async function(){
     }finally{
 
         seedDefaultClassesBtn.disabled  = false;
-        seedDefaultClassesBtn.innerText = "Load Default Classes (LKG – Class 8)";
+        seedDefaultClassesBtn.innerText = "Load Default Classes (Nursery – Class 8)";
 
     }
 
@@ -3306,6 +3889,8 @@ function renderStudents(){
 
                 try{
                     await deleteDoc(doc(db,"students",studentId));
+                    // best-effort: also remove the student's attendance/marks summary
+                    try{ await deleteDoc(doc(db,"studentRecords",studentId)); }catch(e){}
                 }catch(err){
                     alert("Could not remove student — please try again.");
                 }
@@ -3342,6 +3927,533 @@ function startStudentsListener(){
     });
 
 }
+
+
+/* =====================================
+   ADMIN: MANAGE TEACHERS
+===================================== */
+
+const newTeacherNameInput  = document.getElementById("newTeacherName");
+const newTeacherEmailInput = document.getElementById("newTeacherEmail");
+const addTeacherBtn        = document.getElementById("addTeacherBtn");
+const teacherAdminError    = document.getElementById("teacherAdminError");
+const teacherCountBadge    = document.getElementById("teacherCount");
+const teachersTableBody    = document.getElementById("teachersTableBody");
+
+let unsubscribeTeachers = null;
+let latestTeachersForSelects = []; // kept in sync, used by Timetable's teacher dropdown
+
+function showTeacherAdminError(message){
+    teacherAdminError.textContent = message;
+    teacherAdminError.classList.add("show");
+}
+
+function hideTeacherAdminError(){
+    teacherAdminError.classList.remove("show");
+}
+
+addTeacherBtn.addEventListener("click",async function(){
+
+    hideTeacherAdminError();
+
+    const name  = newTeacherNameInput.value.trim();
+    const email = newTeacherEmailInput.value.trim().toLowerCase();
+
+    if(!name || !email){
+        showTeacherAdminError("Please enter both teacher name and email.");
+        return;
+    }
+
+    if(!email.includes("@")){
+        showTeacherAdminError("Please enter a valid email address.");
+        return;
+    }
+
+    addTeacherBtn.disabled  = true;
+    addTeacherBtn.innerText = "Adding...";
+
+    try{
+
+        // Document ID = email, so a teacher's record is easy to look
+        // up by email (used by the Teacher Portal after login) and
+        // re-adding the same email safely updates rather than duplicates.
+        await setDoc(doc(db,"teachers",email),{
+            name      : name,
+            email     : email,
+            createdAt : serverTimestamp()
+        });
+
+        newTeacherNameInput.value  = "";
+        newTeacherEmailInput.value = "";
+
+    }catch(err){
+
+        showTeacherAdminError("Could not add teacher — please check your connection and try again.");
+
+    }finally{
+
+        addTeacherBtn.disabled  = false;
+        addTeacherBtn.innerText = "Add Teacher";
+
+    }
+
+});
+
+function startTeachersListener(){
+
+    const q = query(collection(db,"teachers"), orderBy("name","asc"));
+
+    unsubscribeTeachers = onSnapshot(q,function(snapshot){
+
+        teacherCountBadge.textContent = snapshot.size;
+
+        latestTeachersForSelects = [];
+        snapshot.forEach(function(docSnap){
+            const d = docSnap.data();
+            latestTeachersForSelects.push({ name: d.name, email: d.email || docSnap.id });
+        });
+
+        if(snapshot.empty){
+            teachersTableBody.innerHTML =
+            '<tr><td colspan="3" style="text-align:center;">No teachers added yet.</td></tr>';
+            return;
+        }
+
+        teachersTableBody.innerHTML = "";
+
+        snapshot.forEach(function(docSnap){
+
+            const data = docSnap.data();
+
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${data.name || ""}</td>
+                <td>${data.email || docSnap.id}</td>
+                <td><button class="btn-del" data-id="${docSnap.id}">Delete</button></td>
+            `;
+
+            teachersTableBody.appendChild(tr);
+
+        });
+
+        teachersTableBody.querySelectorAll(".btn-del").forEach(function(btn){
+
+            btn.addEventListener("click",async function(){
+
+                const teacherId = btn.getAttribute("data-id");
+
+                if(confirm("Remove this teacher from the records? " +
+                           "(Their Firebase login account, if created, " +
+                           "is NOT deleted — remove that separately in " +
+                           "Firebase Console if needed.)")){
+
+                    try{
+                        await deleteDoc(doc(db,"teachers",teacherId));
+                    }catch(err){
+                        alert("Could not remove teacher — please try again.");
+                    }
+
+                }
+
+            });
+
+        });
+
+    },function(error){
+
+        teachersTableBody.innerHTML =
+        '<tr><td colspan="3" style="text-align:center;color:#c0392b;">Could not load teachers.</td></tr>';
+
+    });
+
+}
+
+
+/* =====================================
+   ADMIN: MANAGE SUBJECTS
+===================================== */
+
+const subjectListContainer = document.getElementById("subjectListContainer");
+const newSubjectNameInput  = document.getElementById("newSubjectName");
+const addSubjectBtn        = document.getElementById("addSubjectBtn");
+const subjectErrorBox      = document.getElementById("subjectError");
+const subjectCountBadge    = document.getElementById("subjectCount");
+
+let unsubscribeSubjects = null;
+let latestSubjectNamesForSelects = []; // kept in sync, used by Timetable subject dropdowns
+
+function showSubjectError(message){
+    subjectErrorBox.textContent = message;
+    subjectErrorBox.classList.add("show");
+}
+
+function hideSubjectError(){
+    subjectErrorBox.classList.remove("show");
+}
+
+function startSubjectsListener(){
+
+    const q = query(collection(db,"subjects"), orderBy("sortOrder","asc"));
+
+    unsubscribeSubjects = onSnapshot(q,function(snapshot){
+
+        subjectCountBadge.textContent = snapshot.size;
+
+        latestSubjectNamesForSelects = [];
+        snapshot.forEach(function(docSnap){
+            latestSubjectNamesForSelects.push(docSnap.data().name);
+        });
+
+        if(snapshot.empty){
+            subjectListContainer.innerHTML =
+            '<span style="font-size:12.5px;color:#687585;">No subjects yet — add one below.</span>';
+            return;
+        }
+
+        subjectListContainer.innerHTML = "";
+
+        snapshot.forEach(function(docSnap){
+
+            const data = docSnap.data();
+
+            const chip = document.createElement("span");
+            chip.className = "class-chip";
+            chip.innerHTML = `${data.name} <button data-id="${docSnap.id}" title="Remove subject">×</button>`;
+
+            subjectListContainer.appendChild(chip);
+
+        });
+
+        subjectListContainer.querySelectorAll("button").forEach(function(btn){
+
+            btn.addEventListener("click",async function(){
+
+                const subjectId = btn.getAttribute("data-id");
+
+                if(confirm("Remove this subject? Existing timetable entries using it will NOT be changed.")){
+
+                    try{
+                        await deleteDoc(doc(db,"subjects",subjectId));
+                    }catch(err){
+                        alert("Could not remove subject — please try again.");
+                    }
+
+                }
+
+            });
+
+        });
+
+    },function(error){
+
+        subjectListContainer.innerHTML =
+        '<span style="color:#c0392b;font-size:12.5px;">Could not load subjects.</span>';
+
+    });
+
+}
+
+async function addNewSubject(name){
+
+    hideSubjectError();
+
+    const trimmedName = name.trim();
+
+    if(!trimmedName){
+        showSubjectError("Please enter a subject name.");
+        return;
+    }
+
+    const subjectId = slugify(trimmedName);
+
+    try{
+
+        await setDoc(doc(db,"subjects",subjectId),{
+            name      : trimmedName,
+            sortOrder : Date.now()
+        });
+
+        newSubjectNameInput.value = "";
+
+    }catch(err){
+
+        showSubjectError("Could not add subject — please check your connection and try again.");
+
+    }
+
+}
+
+addSubjectBtn.addEventListener("click",function(){
+    addNewSubject(newSubjectNameInput.value);
+});
+
+newSubjectNameInput.addEventListener("keydown",function(e){
+    if(e.key === "Enter"){
+        e.preventDefault();
+        addNewSubject(newSubjectNameInput.value);
+    }
+});
+
+
+/* =====================================
+   ADMIN: MANAGE TIMETABLE
+===================================== */
+
+const DAYS_OF_WEEK = [
+    { key:"monday",    label:"Mon" },
+    { key:"tuesday",   label:"Tue" },
+    { key:"wednesday", label:"Wed" },
+    { key:"thursday",  label:"Thu" },
+    { key:"friday",    label:"Fri" },
+    { key:"saturday",  label:"Sat" }
+];
+
+const timetableClassSelect       = document.getElementById("timetableClassSelect");
+const timetableDayTabsContainer  = document.getElementById("timetableDayTabs");
+const timetablePeriodsContainer  = document.getElementById("timetablePeriodsContainer");
+const addPeriodRowBtn            = document.getElementById("addPeriodRowBtn");
+const saveTimetableBtn           = document.getElementById("saveTimetableBtn");
+const timetableErrorBox          = document.getElementById("timetableError");
+
+let currentTimetableDay = "monday";
+
+function showTimetableError(message){
+    timetableErrorBox.textContent = message;
+    timetableErrorBox.classList.add("show");
+}
+
+function hideTimetableError(){
+    timetableErrorBox.classList.remove("show");
+}
+
+function renderDayTabs(){
+
+    timetableDayTabsContainer.innerHTML = "";
+
+    DAYS_OF_WEEK.forEach(function(day){
+
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "day-tab" + (day.key === currentTimetableDay ? " active" : "");
+        btn.textContent = day.label;
+
+        btn.addEventListener("click",function(){
+            currentTimetableDay = day.key;
+            renderDayTabs();
+            loadPeriodsForSelectedClassDay();
+        });
+
+        timetableDayTabsContainer.appendChild(btn);
+
+    });
+
+}
+
+renderDayTabs();
+
+function buildSubjectOptionsHTML(selectedValue){
+
+    let html = '<option value="">Subject</option>';
+
+    latestSubjectNamesForSelects.forEach(function(name){
+        const sel = (name === selectedValue) ? "selected" : "";
+        html += `<option value="${name}" ${sel}>${name}</option>`;
+    });
+
+    return html;
+
+}
+
+function buildTeacherOptionsHTML(selectedEmail){
+
+    let html = '<option value="">Teacher</option>';
+
+    latestTeachersForSelects.forEach(function(t){
+        const sel = (t.email === selectedEmail) ? "selected" : "";
+        html += `<option value="${t.email}" ${sel}>${t.name}</option>`;
+    });
+
+    return html;
+
+}
+
+function addPeriodRow(existingData){
+
+    const periodNumber = timetablePeriodsContainer.querySelectorAll(".period-row").length + 1;
+
+    const row = document.createElement("div");
+    row.className = "period-row";
+
+    row.innerHTML = `
+        <span class="period-label">Period ${periodNumber}</span>
+        <select class="period-subject">${buildSubjectOptionsHTML(existingData ? existingData.subject : "")}</select>
+        <select class="period-teacher">${buildTeacherOptionsHTML(existingData ? existingData.teacherEmail : "")}</select>
+        <button type="button" class="period-remove" title="Remove period">×</button>
+    `;
+
+    row.querySelector(".period-remove").addEventListener("click",function(){
+        row.remove();
+        renumberPeriodRows();
+    });
+
+    timetablePeriodsContainer.appendChild(row);
+
+}
+
+function renumberPeriodRows(){
+
+    timetablePeriodsContainer.querySelectorAll(".period-row").forEach(function(row,index){
+        row.querySelector(".period-label").textContent = "Period " + (index + 1);
+    });
+
+}
+
+function renderPeriodRows(periodsArray){
+
+    timetablePeriodsContainer.innerHTML = "";
+
+    if(!periodsArray || periodsArray.length === 0){
+        timetablePeriodsContainer.innerHTML =
+        '<p style="font-size:12.5px;color:#687585;">No periods added for this day yet. Use "+ Add Period" below.</p>';
+        return;
+    }
+
+    periodsArray.forEach(function(p){
+        addPeriodRow(p);
+    });
+
+}
+
+async function loadPeriodsForSelectedClassDay(){
+
+    hideTimetableError();
+
+    const classId = timetableClassSelect.value;
+
+    if(!classId){
+        timetablePeriodsContainer.innerHTML =
+        '<p style="font-size:12.5px;color:#687585;">Select a class and day above to edit its periods.</p>';
+        addPeriodRowBtn.disabled  = true;
+        saveTimetableBtn.disabled = true;
+        return;
+    }
+
+    addPeriodRowBtn.disabled  = false;
+    saveTimetableBtn.disabled = false;
+
+    timetablePeriodsContainer.innerHTML =
+    '<p style="font-size:12.5px;color:#687585;">Loading...</p>';
+
+    try{
+
+        const docId = slugify(classId);
+        const snap  = await getDoc(doc(db,"timetable",docId));
+
+        const dayData = (snap.exists() && snap.data()[currentTimetableDay])
+            ? snap.data()[currentTimetableDay]
+            : [];
+
+        renderPeriodRows(dayData);
+
+    }catch(err){
+
+        timetablePeriodsContainer.innerHTML =
+        '<p style="font-size:12.5px;color:#c0392b;">Could not load timetable for this class.</p>';
+
+    }
+
+}
+
+timetableClassSelect.addEventListener("change",loadPeriodsForSelectedClassDay);
+
+addPeriodRowBtn.addEventListener("click",function(){
+
+    // clear the "no periods yet" placeholder text if present
+    if(timetablePeriodsContainer.querySelector("p")){
+        timetablePeriodsContainer.innerHTML = "";
+    }
+
+    addPeriodRow(null);
+
+});
+
+saveTimetableBtn.addEventListener("click",async function(){
+
+    hideTimetableError();
+
+    const className = timetableClassSelect.value;
+
+    if(!className){
+        showTimetableError("Please select a class first.");
+        return;
+    }
+
+    const rows = timetablePeriodsContainer.querySelectorAll(".period-row");
+    const periodsArray = [];
+
+    for(let i=0;i<rows.length;i++){
+
+        const subject      = rows[i].querySelector(".period-subject").value;
+        const teacherEmail = rows[i].querySelector(".period-teacher").value;
+
+        if(!subject || !teacherEmail){
+            showTimetableError("Please select both a subject and a teacher for every period (or remove the empty one).");
+            return;
+        }
+
+        const teacherMatch = latestTeachersForSelects.find(function(t){ return t.email === teacherEmail; });
+
+        periodsArray.push({
+            period      : i + 1,
+            subject     : subject,
+            teacherEmail: teacherEmail,
+            teacherName : teacherMatch ? teacherMatch.name : ""
+        });
+
+    }
+
+    saveTimetableBtn.disabled  = true;
+    saveTimetableBtn.innerText = "Saving...";
+
+    try{
+
+        const docId = slugify(className);
+
+        // Re-read the saved timetable so the "teacher|subject" keys are
+        // computed from ALL days of this class, not just the one being
+        // saved. The database rules use these keys to decide which
+        // teacher may record attendance/marks for which class + subject.
+        const existingSnap = await getDoc(doc(db,"timetable",docId));
+        const allDays = existingSnap.exists() ? existingSnap.data() : {};
+        allDays[currentTimetableDay] = periodsArray;
+
+        const teacherSubjectKeys = [];
+
+        DAYS_OF_WEEK.forEach(function(day){
+            (allDays[day.key] || []).forEach(function(p){
+                const key = p.teacherEmail + "|" + slugify(p.subject);
+                if(!teacherSubjectKeys.includes(key)) teacherSubjectKeys.push(key);
+            });
+        });
+
+        await setDoc(doc(db,"timetable",docId),{
+            className: className,
+            [currentTimetableDay]: periodsArray,
+            teacherSubjectKeys: teacherSubjectKeys
+        },{ merge:true });
+
+    }catch(err){
+
+        showTimetableError("Could not save timetable — please check your connection and try again.");
+
+    }finally{
+
+        saveTimetableBtn.disabled  = false;
+        saveTimetableBtn.innerText = "Save This Day's Timetable";
+
+    }
+
+});
 
 
 /* =====================================
@@ -3436,6 +4548,80 @@ adminLogoutBtn.addEventListener("click",async function(){
 });
 
 
+/* =====================================
+   TEACHER PORTAL: LOGIN / LOGOUT
+===================================== */
+
+const teacherErrorBox    = document.getElementById("teacherError");
+const teacherLoginView   = document.getElementById("teacherLoginView");
+const teacherDashboard   = document.getElementById("teacherDashboard");
+const teacherEmailInput  = document.getElementById("teacherEmail");
+const teacherPassInput   = document.getElementById("teacherPassword");
+const teacherLoginBtn    = document.getElementById("teacherLoginBtn");
+const teacherLogoutBtn   = document.getElementById("teacherLogoutBtn");
+const teacherWelcomeMsg  = document.getElementById("teacherWelcomeMsg");
+
+function showTeacherError(message){
+    teacherErrorBox.textContent = message;
+    teacherErrorBox.classList.add("show");
+}
+
+function hideTeacherError(){
+    teacherErrorBox.classList.remove("show");
+}
+
+teacherLoginBtn.addEventListener("click",async function(){
+
+    hideTeacherError();
+
+    const email    = teacherEmailInput.value.trim().toLowerCase();
+    const password = teacherPassInput.value;
+
+    if(!email || !password){
+        showTeacherError("Please enter both email and password.");
+        return;
+    }
+
+    teacherLoginBtn.disabled  = true;
+    teacherLoginBtn.innerText = "Logging in...";
+
+    try{
+
+        await signInWithEmailAndPassword(auth,email,password);
+        teacherPassInput.value = "";
+
+    }catch(err){
+
+        if(err.code === "auth/invalid-credential" ||
+           err.code === "auth/wrong-password" ||
+           err.code === "auth/user-not-found"){
+
+            showTeacherError("Incorrect email or password.");
+
+        }else if(err.code === "auth/too-many-requests"){
+
+            showTeacherError("Too many attempts. Please try again later.");
+
+        }else{
+
+            showTeacherError("Login failed. Please check your connection.");
+
+        }
+
+    }finally{
+
+        teacherLoginBtn.disabled  = false;
+        teacherLoginBtn.innerText = "Login";
+
+    }
+
+});
+
+teacherLogoutBtn.addEventListener("click",async function(){
+    await signOut(auth);
+});
+
+
 function formatTimestamp(ts){
 
     if(!ts || !ts.toDate) return "—";
@@ -3486,18 +4672,43 @@ function renderApplications(){
 
         const tr = document.createElement("tr");
 
+        const aadhaarDigits = String(data.aadhaar || "").replace(/\D/g,"");
+
+        const aadhaarHtml = aadhaarDigits.length === 12
+            ? '<span class="aadhaar-mask" data-masked="XXXX XXXX ' + aadhaarDigits.slice(-4) + '"' +
+              ' data-full="' + aadhaarDigits.replace(/(\d{4})(?=\d)/g,"$1 ") + '"' +
+              ' title="Tap to show / hide">XXXX XXXX ' + aadhaarDigits.slice(-4) + '</span>'
+            : "—";
+
         tr.innerHTML = `
-            <td><strong>${data.studentFullName || ""}</strong><br>
-                <small>DOB: ${data.dob || "—"}</small></td>
-            <td>${data.applyingClass || ""}</td>
-            <td>F: ${data.fatherName || ""}<br>M: ${data.motherName || "—"}</td>
-            <td>${data.parentPhone || ""}</td>
-            <td>${data.address || ""}</td>
+            <td><strong>${escapeHtml(data.studentFullName)}</strong><br>
+                <small>DOB: ${escapeHtml(data.dob) || "—"}</small><br>
+                <small>Caste: ${escapeHtml(data.caste) || "—"}</small><br>
+                <small>Aadhaar: ${aadhaarHtml}</small></td>
+            <td>${escapeHtml(data.applyingClass)}</td>
+            <td>F: ${escapeHtml(data.fatherName)}<br>M: ${escapeHtml(data.motherName) || "—"}</td>
+            <td>${escapeHtml(data.parentPhone)}</td>
+            <td>${escapeHtml(data.address)}</td>
             <td>${formatTimestamp(data.submittedAt)}</td>
-            <td><button class="btn-del" data-id="${item.id}">Delete</button></td>
+            <td><button class="btn-del" data-id="${escapeHtml(item.id)}">Delete</button></td>
         `;
 
         appsTableBody.appendChild(tr);
+
+    });
+
+    // Aadhaar stays masked until the admin taps it
+    appsTableBody.querySelectorAll(".aadhaar-mask").forEach(function(span){
+
+        span.addEventListener("click",function(){
+
+            const showing = span.textContent === span.getAttribute("data-full");
+
+            span.textContent = showing
+                ? span.getAttribute("data-masked")
+                : span.getAttribute("data-full");
+
+        });
 
     });
 
@@ -3553,9 +4764,1043 @@ function startApplicationsListener(){
 }
 
 
-onAuthStateChanged(auth,function(user){
+async function loadTeacherSchedule(teacherEmail){
 
-    if(user){
+    initTeacherTools(teacherEmail);
+
+    const container = document.getElementById("teacherSchedule");
+    container.innerHTML = '<p style="font-size:13px;color:#777;text-align:left;">Loading your schedule...</p>';
+
+    try{
+
+        const snapshot = await getDocs(collection(db,"timetable"));
+
+        // day key -> list of { period, className, subject }
+        const byDay = {};
+        const seenAssignments = {};
+        const assignments = [];
+
+        snapshot.forEach(function(docSnap){
+
+            const data = docSnap.data();
+
+            DAYS_OF_WEEK.forEach(function(day){
+
+                (data[day.key] || []).forEach(function(p){
+
+                    if((p.teacherEmail || "").toLowerCase() === teacherEmail.toLowerCase()){
+
+                        const assignKey = docSnap.id + "|" + slugify(p.subject);
+
+                        if(!seenAssignments[assignKey]){
+                            seenAssignments[assignKey] = true;
+                            assignments.push({
+                                classSlug  : docSnap.id,
+                                className  : data.className || "",
+                                subject    : p.subject,
+                                subjectSlug: slugify(p.subject)
+                            });
+                        }
+
+                        if(!byDay[day.key]) byDay[day.key] = [];
+
+                        byDay[day.key].push({
+                            period    : p.period,
+                            className : data.className || "",
+                            subject   : p.subject
+                        });
+
+                    }
+
+                });
+
+            });
+
+        });
+
+        assignments.sort(function(a,b){
+            return (a.className + a.subject).localeCompare(b.className + b.subject);
+        });
+
+        setTeacherAssignments(assignments);
+
+        container.innerHTML = "";
+
+        const fullDayNames = {
+            monday:"Monday", tuesday:"Tuesday", wednesday:"Wednesday",
+            thursday:"Thursday", friday:"Friday", saturday:"Saturday"
+        };
+
+        let anyPeriod = false;
+
+        DAYS_OF_WEEK.forEach(function(day){
+
+            const list = byDay[day.key];
+            if(!list || list.length === 0) return;
+
+            anyPeriod = true;
+
+            list.sort(function(a,b){ return a.period - b.period; });
+
+            const block = document.createElement("div");
+            block.className = "schedule-day";
+
+            const heading = document.createElement("h4");
+            heading.textContent = fullDayNames[day.key];
+            block.appendChild(heading);
+
+            list.forEach(function(item){
+                const row = document.createElement("div");
+                row.className = "schedule-item";
+                row.textContent = "Period " + item.period + " — " + item.className + " · " + item.subject;
+                block.appendChild(row);
+            });
+
+            container.appendChild(block);
+
+        });
+
+        if(!anyPeriod){
+            container.innerHTML =
+            '<p style="font-size:13px;color:#777;text-align:left;">No periods have been assigned to you yet.</p>';
+        }
+
+    }catch(err){
+
+        container.innerHTML =
+        '<p style="font-size:13px;color:#c0392b;text-align:left;">Could not load your schedule. Please try again later.</p>';
+
+    }
+
+}
+
+
+
+/* =====================================
+   TEACHER PORTAL: ATTENDANCE + MARKS
+===================================== */
+
+let currentTeacherEmail = "";
+let teacherAssignments  = [];   // [{ classSlug, className, subject, subjectSlug }]
+
+const attClassSubject = document.getElementById("attClassSubject");
+const attDate         = document.getElementById("attDate");
+const attRoster       = document.getElementById("attRoster");
+const attSummary      = document.getElementById("attSummary");
+const attMarkAllBtn   = document.getElementById("attMarkAllBtn");
+const attMessage      = document.getElementById("attMessage");
+const attSaveBtn      = document.getElementById("attSaveBtn");
+
+const marksClassSubject = document.getElementById("marksClassSubject");
+const marksExam         = document.getElementById("marksExam");
+const marksMax          = document.getElementById("marksMax");
+const marksRoster       = document.getElementById("marksRoster");
+const marksMessage      = document.getElementById("marksMessage");
+const marksSaveBtn      = document.getElementById("marksSaveBtn");
+
+const EXAM_LABELS = { cycleTest:"Cycle Test", finalExam:"Final Exam" };
+
+let attLoadToken   = 0;
+let marksLoadToken = 0;
+let marksLoadedIds  = new Set();   // students who already had a saved mark when the sheet was loaded
+
+function setMessage(box,text,isSuccess){
+    box.textContent = text;
+    box.classList.add("show");
+    box.classList.toggle("success",!!isSuccess);
+}
+
+function clearMessage(box){
+    box.classList.remove("show");
+    box.classList.remove("success");
+}
+
+function todayISO(){
+    const d = new Date();
+    return d.getFullYear() + "-" +
+           String(d.getMonth()+1).padStart(2,"0") + "-" +
+           String(d.getDate()).padStart(2,"0");
+}
+
+// ----- tabs: Schedule / Attendance / Marks -----
+
+const teacherToolTabs = document.querySelectorAll("#teacherToolTabs .day-tab");
+const teacherPanels   = document.querySelectorAll(".teacher-panel");
+
+function showTeacherPanel(panelId){
+
+    teacherToolTabs.forEach(function(t){
+        t.classList.toggle("active", t.getAttribute("data-panel") === panelId);
+    });
+
+    teacherPanels.forEach(function(p){
+        p.classList.toggle("active", p.id === panelId);
+    });
+
+}
+
+teacherToolTabs.forEach(function(tab){
+    tab.addEventListener("click",function(){
+        showTeacherPanel(tab.getAttribute("data-panel"));
+    });
+});
+
+// ----- shared helpers -----
+
+function fillAssignmentSelect(select){
+
+    select.innerHTML = teacherAssignments.length
+        ? '<option value="">Select class & subject</option>'
+        : '<option value="">No classes assigned yet</option>';
+
+    teacherAssignments.forEach(function(a,i){
+        const opt = document.createElement("option");
+        opt.value = String(i);
+        opt.textContent = a.className + " · " + a.subject;
+        select.appendChild(opt);
+    });
+
+}
+
+function selectedAssignment(select){
+    return select.value === "" ? null : (teacherAssignments[Number(select.value)] || null);
+}
+
+async function fetchRoster(className){
+
+    // single equality filter only — no composite index needed
+    const snap = await getDocs(query(collection(db,"students"), where("class","==",className)));
+
+    const list = [];
+
+    snap.forEach(function(d){
+        list.push({ id:d.id, name:d.data().studentFullName || "" });
+    });
+
+    list.sort(function(a,b){ return a.name.localeCompare(b.name); });
+
+    return list;
+
+}
+
+// Writes each student's own summary record (read by the Student Login).
+// Done as separate writes (not one batch) so the database rules can check
+// every write against the timetable independently. Each write is a merge,
+// so repeating a save is always safe.
+async function writeStudentRecords(a,entries){
+
+    await Promise.all(entries.map(function(e){
+
+        const data = {
+            studentFullName : e.name,
+            className       : a.className,
+            classSlug       : a.classSlug,
+            lastSubjectSlug : a.subjectSlug,
+            updatedAt       : serverTimestamp()
+        };
+
+        data[e.field] = e.patch;
+
+        return setDoc(doc(db,"studentRecords",e.id),data,{ merge:true });
+
+    }));
+
+}
+
+function saveErrorText(err,what){
+
+    if(err && err.code === "permission-denied"){
+        return "You are not authorised to save " + what + " for this class and subject.";
+    }
+
+    return "Could not save " + what + " — please check your connection and try again.";
+
+}
+
+function setTeacherAssignments(assignments){
+
+    teacherAssignments = assignments;
+
+    fillAssignmentSelect(attClassSubject);
+    fillAssignmentSelect(marksClassSubject);
+
+    loadAttendanceSheet();
+    loadMarksSheet();
+
+}
+
+function initTeacherTools(teacherEmail){
+
+    currentTeacherEmail = teacherEmail;
+
+    attDate.max   = todayISO();
+    attDate.value = todayISO();
+
+    showTeacherPanel("teacherSchedulePanel");
+
+}
+
+function resetTeacherTools(){
+
+    currentTeacherEmail = "";
+    teacherAssignments  = [];
+
+    fillAssignmentSelect(attClassSubject);
+    fillAssignmentSelect(marksClassSubject);
+
+    attLoadToken++;
+    marksLoadToken++;
+
+    attRoster.innerHTML   = "";
+    marksRoster.innerHTML = "";
+    attSummary.textContent = "";
+    attSaveBtn.disabled   = true;
+    marksSaveBtn.disabled = true;
+    attMarkAllBtn.style.display = "none";
+
+    clearMessage(attMessage);
+    clearMessage(marksMessage);
+
+    showTeacherPanel("teacherSchedulePanel");
+
+}
+
+// ----- ATTENDANCE -----
+
+function attendanceDocId(a,date){
+    return a.classSlug + "__" + a.subjectSlug + "__" + date;
+}
+
+function updateAttendanceSummary(){
+
+    const boxes   = attRoster.querySelectorAll("input[type=checkbox]");
+    const present = attRoster.querySelectorAll("input[type=checkbox]:checked").length;
+
+    attSummary.textContent = boxes.length
+        ? "Present: " + present + " of " + boxes.length
+        : "";
+
+}
+
+async function loadAttendanceSheet(){
+
+    const token = ++attLoadToken;
+
+    clearMessage(attMessage);
+    attRoster.innerHTML = "";
+    attSummary.textContent = "";
+    attSaveBtn.disabled = true;
+    attMarkAllBtn.style.display = "none";
+
+    const a = selectedAssignment(attClassSubject);
+
+    if(!a || !attDate.value) return;
+
+    attRoster.innerHTML = '<p class="muted-note">Loading students...</p>';
+
+    try{
+
+        const results = await Promise.all([
+            fetchRoster(a.className),
+            getDoc(doc(db,"attendance",attendanceDocId(a,attDate.value)))
+        ]);
+
+        if(token !== attLoadToken) return;   // selection changed meanwhile
+
+        const roster       = results[0];
+        const existingSnap = results[1];
+        const records      = existingSnap.exists() ? (existingSnap.data().records || {}) : {};
+
+        if(roster.length === 0){
+            attRoster.innerHTML =
+            '<p class="muted-note">No students have been added to ' + a.className + ' yet.</p>';
+            return;
+        }
+
+        const list = document.createElement("div");
+        list.className = "roster-list";
+
+        roster.forEach(function(s){
+
+            const row = document.createElement("label");
+            row.className = "roster-row";
+
+            const box = document.createElement("input");
+            box.type = "checkbox";
+            box.setAttribute("data-id",s.id);
+            box.setAttribute("data-name",s.name);
+            box.checked = records[s.id] === true;
+            box.addEventListener("change",updateAttendanceSummary);
+
+            const name = document.createElement("span");
+            name.textContent = s.name;
+
+            row.appendChild(box);
+            row.appendChild(name);
+            list.appendChild(row);
+
+        });
+
+        attRoster.innerHTML = "";
+        attRoster.appendChild(list);
+
+        attMarkAllBtn.style.display = "block";
+        attSaveBtn.disabled = false;
+
+        updateAttendanceSummary();
+
+        if(existingSnap.exists()){
+            setMessage(attMessage,"Previously saved attendance for this date has been loaded. You can edit it and save again.",true);
+        }
+
+    }catch(err){
+
+        if(token !== attLoadToken) return;
+
+        attRoster.innerHTML =
+        '<p class="muted-note" style="color:#c0392b;">Could not load students. Please try again.</p>';
+
+    }
+
+}
+
+attClassSubject.addEventListener("change",loadAttendanceSheet);
+attDate.addEventListener("change",loadAttendanceSheet);
+
+attMarkAllBtn.addEventListener("click",function(){
+
+    attRoster.querySelectorAll("input[type=checkbox]").forEach(function(b){
+        b.checked = true;
+    });
+
+    updateAttendanceSummary();
+
+});
+
+attSaveBtn.addEventListener("click",async function(){
+
+    clearMessage(attMessage);
+
+    const a = selectedAssignment(attClassSubject);
+
+    if(!a || !attDate.value){
+        setMessage(attMessage,"Please select a class & subject and a date.");
+        return;
+    }
+
+    const boxes = attRoster.querySelectorAll("input[type=checkbox]");
+
+    if(boxes.length === 0){
+        setMessage(attMessage,"There are no students to save attendance for.");
+        return;
+    }
+
+    const records = {};
+
+    boxes.forEach(function(b){
+        records[b.getAttribute("data-id")] = b.checked;
+    });
+
+    attSaveBtn.disabled  = true;
+    attSaveBtn.innerText = "Saving...";
+
+    try{
+
+        const attEntries = [];
+
+        boxes.forEach(function(b){
+
+            const patch = {};
+
+            patch[a.subjectSlug + "__" + attDate.value] = {
+                subject : a.subject,
+                date    : attDate.value,
+                present : b.checked
+            };
+
+            attEntries.push({
+                id    : b.getAttribute("data-id"),
+                name  : b.getAttribute("data-name") || "",
+                field : "attendance",
+                patch : patch
+            });
+
+        });
+
+        await writeStudentRecords(a,attEntries);
+
+        await setDoc(doc(db,"attendance",attendanceDocId(a,attDate.value)),{
+            classSlug    : a.classSlug,
+            className    : a.className,
+            subjectSlug  : a.subjectSlug,
+            subject      : a.subject,
+            date         : attDate.value,
+            teacherEmail : currentTeacherEmail,
+            records      : records,
+            updatedAt    : serverTimestamp()
+        });
+
+        setMessage(attMessage,"Attendance saved for " + a.className + " · " + a.subject + " on " + attDate.value + ".",true);
+
+    }catch(err){
+
+        setMessage(attMessage,saveErrorText(err,"attendance"));
+
+    }finally{
+
+        attSaveBtn.disabled  = false;
+        attSaveBtn.innerText = "Save Attendance";
+
+    }
+
+});
+
+// ----- MARKS -----
+
+function marksDocId(a,exam){
+    return a.classSlug + "__" + a.subjectSlug + "__" + exam;
+}
+
+async function loadMarksSheet(){
+
+    const token = ++marksLoadToken;
+
+    clearMessage(marksMessage);
+    marksRoster.innerHTML = "";
+    marksSaveBtn.disabled = true;
+
+    const a = selectedAssignment(marksClassSubject);
+
+    if(!a) return;
+
+    marksRoster.innerHTML = '<p class="muted-note">Loading students...</p>';
+
+    try{
+
+        const results = await Promise.all([
+            fetchRoster(a.className),
+            getDoc(doc(db,"marks",marksDocId(a,marksExam.value)))
+        ]);
+
+        if(token !== marksLoadToken) return;
+
+        const roster       = results[0];
+        const existingSnap = results[1];
+        const existing     = existingSnap.exists() ? existingSnap.data() : null;
+        const records      = existing ? (existing.records || {}) : {};
+
+        marksLoadedIds = new Set(Object.keys(records));
+
+        if(existing && existing.maxMarks){
+            marksMax.value = existing.maxMarks;
+        }
+
+        if(roster.length === 0){
+            marksRoster.innerHTML =
+            '<p class="muted-note">No students have been added to ' + a.className + ' yet.</p>';
+            return;
+        }
+
+        const list = document.createElement("div");
+        list.className = "roster-list";
+
+        roster.forEach(function(s){
+
+            const row = document.createElement("label");
+            row.className = "roster-row";
+
+            const name = document.createElement("span");
+            name.textContent = s.name;
+
+            const input = document.createElement("input");
+            input.type = "number";
+            input.min  = "0";
+            input.step = "any";
+            input.setAttribute("inputmode","decimal");
+            input.setAttribute("data-id",s.id);
+            input.setAttribute("data-name",s.name);
+            input.placeholder = "—";
+
+            if(records[s.id] !== undefined && records[s.id] !== null){
+                input.value = records[s.id];
+            }
+
+            row.appendChild(name);
+            row.appendChild(input);
+            list.appendChild(row);
+
+        });
+
+        marksRoster.innerHTML = "";
+        marksRoster.appendChild(list);
+
+        marksSaveBtn.disabled = false;
+
+        if(existing){
+            setMessage(marksMessage,"Previously saved " + EXAM_LABELS[marksExam.value] + " marks have been loaded. You can edit them and save again.",true);
+        }
+
+    }catch(err){
+
+        if(token !== marksLoadToken) return;
+
+        marksRoster.innerHTML =
+        '<p class="muted-note" style="color:#c0392b;">Could not load students. Please try again.</p>';
+
+    }
+
+}
+
+marksClassSubject.addEventListener("change",function(){
+    marksMax.value = 100;
+    loadMarksSheet();
+});
+
+marksExam.addEventListener("change",function(){
+    marksMax.value = 100;
+    loadMarksSheet();
+});
+
+marksSaveBtn.addEventListener("click",async function(){
+
+    clearMessage(marksMessage);
+
+    const a = selectedAssignment(marksClassSubject);
+
+    if(!a){
+        setMessage(marksMessage,"Please select a class & subject.");
+        return;
+    }
+
+    const maxMarks = Number(marksMax.value);
+
+    if(!(maxMarks > 0)){
+        setMessage(marksMessage,"Please enter the maximum marks (a number greater than 0).");
+        return;
+    }
+
+    const inputs  = marksRoster.querySelectorAll("input[type=number]");
+    const records = {};
+    const clearedIds = [];
+
+    for(let i=0;i<inputs.length;i++){
+
+        const raw = inputs[i].value.trim();
+
+        if(raw === ""){
+            // not entered — left out on purpose; if a mark was saved before, it is cleared
+            if(marksLoadedIds.has(inputs[i].getAttribute("data-id"))){
+                clearedIds.push({
+                    id   : inputs[i].getAttribute("data-id"),
+                    name : inputs[i].getAttribute("data-name") || ""
+                });
+            }
+            continue;
+        }
+
+        const value = Number(raw);
+
+        if(isNaN(value) || value < 0 || value > maxMarks){
+            setMessage(marksMessage,
+                "Marks for " + inputs[i].getAttribute("data-name") +
+                " must be a number between 0 and " + maxMarks + ".");
+            return;
+        }
+
+        records[inputs[i].getAttribute("data-id")] = value;
+
+    }
+
+    if(Object.keys(records).length === 0){
+        setMessage(marksMessage,"Please enter marks for at least one student.");
+        return;
+    }
+
+    marksSaveBtn.disabled  = true;
+    marksSaveBtn.innerText = "Saving...";
+
+    try{
+
+        const marksKey     = a.subjectSlug + "__" + marksExam.value;
+        const marksEntries = [];
+
+        inputs.forEach(function(inp){
+
+            const id = inp.getAttribute("data-id");
+
+            if(records[id] === undefined) return;
+
+            marksEntries.push({
+                id    : id,
+                name  : inp.getAttribute("data-name") || "",
+                field : "marks",
+                patch : (function(){
+                    const p = {};
+                    p[marksKey] = {
+                        subject : a.subject,
+                        exam    : marksExam.value,
+                        score   : records[id],
+                        max     : maxMarks
+                    };
+                    return p;
+                })()
+            });
+
+        });
+
+        clearedIds.forEach(function(c){
+
+            const p = {};
+            p[marksKey] = deleteField();
+
+            marksEntries.push({ id:c.id, name:c.name, field:"marks", patch:p });
+
+        });
+
+        await writeStudentRecords(a,marksEntries);
+
+        await setDoc(doc(db,"marks",marksDocId(a,marksExam.value)),{
+            classSlug    : a.classSlug,
+            className    : a.className,
+            subjectSlug  : a.subjectSlug,
+            subject      : a.subject,
+            exam         : marksExam.value,
+            maxMarks     : maxMarks,
+            teacherEmail : currentTeacherEmail,
+            records      : records,
+            updatedAt    : serverTimestamp()
+        });
+
+        setMessage(marksMessage,
+            EXAM_LABELS[marksExam.value] + " marks saved for " + a.className + " · " + a.subject + ".",true);
+
+    }catch(err){
+
+        setMessage(marksMessage,saveErrorText(err,"marks"));
+
+    }finally{
+
+        marksSaveBtn.disabled  = false;
+        marksSaveBtn.innerText = "Save Marks";
+
+    }
+
+});
+
+
+
+/* =====================================
+   STUDENT LOGIN (Name + Date of Birth + Class)
+   Uses direct lookups by ID only — the public can never list
+   or browse students. Read-only: nothing is written here.
+===================================== */
+
+const studentLoginErrorBox = document.getElementById("studentLoginError");
+const studentLoginView     = document.getElementById("studentLoginView");
+const studentDashboardView = document.getElementById("studentDashboard");
+const studentLoginNameEl   = document.getElementById("studentLoginName");
+const studentLoginDobEl    = document.getElementById("studentLoginDob");
+const studentLoginClassEl  = document.getElementById("studentLoginClass");
+const studentLoginBtn      = document.getElementById("studentLoginBtn");
+const studentLogoutBtn     = document.getElementById("studentLogoutBtn");
+
+function showStudentLoginError(message){
+    studentLoginErrorBox.textContent = message;
+    studentLoginErrorBox.classList.add("show");
+}
+
+function hideStudentLoginError(){
+    studentLoginErrorBox.classList.remove("show");
+}
+
+// keep the typed name in CAPITAL LETTERS (real value, not just display)
+studentLoginNameEl.addEventListener("input",function(e){
+    const pos = e.target.selectionStart;
+    e.target.value = e.target.value.toUpperCase();
+    e.target.setSelectionRange(pos,pos);
+});
+
+function normalizeClassName(value){
+    return (value || "").toString().trim().toLowerCase().replace(/\s+/g," ");
+}
+
+function formatDobForDisplay(iso){
+
+    const parts = (iso || "").split("-");
+    if(parts.length !== 3) return iso || "";
+
+    const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    return parseInt(parts[2],10) + " " + months[parseInt(parts[1],10)-1] + " " + parts[0];
+
+}
+
+function renderStudentAttendance(attendanceMap){
+
+    const body = document.getElementById("studentAttendanceBody");
+    body.innerHTML = "";
+
+    const entries = Object.values(attendanceMap || {});
+
+    if(entries.length === 0){
+        const none = document.createElement("p");
+        none.style.cssText = "font-size:13px;color:#777;margin-top:8px;";
+        none.textContent = "No attendance has been recorded yet.";
+        body.appendChild(none);
+        return;
+    }
+
+    const total   = entries.length;
+    const present = entries.filter(function(e){ return e.present === true; }).length;
+    const percent = Math.round((present / total) * 100);
+
+    const big = document.createElement("div");
+    big.className = "attendance-percent";
+    big.style.marginTop = "8px";
+    big.textContent = percent + "%";
+    body.appendChild(big);
+
+    const bar = document.createElement("div");
+    bar.className = "progress";
+    const fill = document.createElement("div");
+    fill.className = "progress-bar";
+    fill.style.width = percent + "%";
+    bar.appendChild(fill);
+    body.appendChild(bar);
+
+    const summary = document.createElement("p");
+    summary.style.cssText = "font-size:13px;color:#475569;";
+    summary.textContent = "Present in " + present + " of " + total + " classes";
+    body.appendChild(summary);
+
+    // subject-wise breakdown
+    const bySubject = {};
+
+    entries.forEach(function(e){
+        const name = e.subject || "Other";
+        if(!bySubject[name]) bySubject[name] = { present:0, total:0 };
+        bySubject[name].total++;
+        if(e.present === true) bySubject[name].present++;
+    });
+
+    const list = document.createElement("div");
+    list.style.marginTop = "10px";
+
+    Object.keys(bySubject).sort().forEach(function(subject){
+
+        const s = bySubject[subject];
+        const line = document.createElement("div");
+        line.className = "subject-line";
+
+        const left = document.createElement("span");
+        left.textContent = subject;
+
+        const right = document.createElement("span");
+        right.textContent = s.present + "/" + s.total + " (" + Math.round((s.present / s.total) * 100) + "%)";
+
+        line.appendChild(left);
+        line.appendChild(right);
+        list.appendChild(line);
+
+    });
+
+    body.appendChild(list);
+
+}
+
+function renderStudentMarks(marksMap){
+
+    const body = document.getElementById("studentMarksBody");
+    body.innerHTML = "";
+
+    const entries = Object.values(marksMap || {});
+
+    if(entries.length === 0){
+        const none = document.createElement("p");
+        none.style.cssText = "font-size:13px;color:#777;margin-top:8px;";
+        none.textContent = "No marks have been published yet.";
+        body.appendChild(none);
+        return;
+    }
+
+    const bySubject = {};
+
+    entries.forEach(function(e){
+        const name = e.subject || "Other";
+        if(!bySubject[name]) bySubject[name] = {};
+        bySubject[name][e.exam] = e.score + "/" + e.max;
+    });
+
+    const table = document.createElement("table");
+    table.className = "result-table";
+
+    const head = document.createElement("tr");
+    ["Subject","Cycle Test","Final Exam"].forEach(function(label){
+        const th = document.createElement("th");
+        th.textContent = label;
+        head.appendChild(th);
+    });
+    table.appendChild(head);
+
+    Object.keys(bySubject).sort().forEach(function(subject){
+
+        const tr = document.createElement("tr");
+
+        [subject, bySubject[subject].cycleTest || "—", bySubject[subject].finalExam || "—"].forEach(function(text){
+            const td = document.createElement("td");
+            td.textContent = text;
+            tr.appendChild(td);
+        });
+
+        table.appendChild(tr);
+
+    });
+
+    body.appendChild(table);
+
+}
+
+studentLoginBtn.addEventListener("click",async function(){
+
+    hideStudentLoginError();
+
+    const name = studentLoginNameEl.value.trim().replace(/\s+/g," ").toUpperCase();
+    const dob  = studentLoginDobEl.value;
+    const cls  = studentLoginClassEl.value;
+
+    if(!name || !dob || !cls){
+        showStudentLoginError("Please enter the student's name, date of birth and class.");
+        return;
+    }
+
+    studentLoginBtn.disabled  = true;
+    studentLoginBtn.innerText = "Checking...";
+
+    try{
+
+        const studentId   = makeStudentId(name,dob);
+        const studentSnap = await getDoc(doc(db,"students",studentId));
+
+        if(!studentSnap.exists() ||
+           normalizeClassName(studentSnap.data().class) !== normalizeClassName(cls)){
+
+            showStudentLoginError(
+                "No student found with these details. Please check the name, " +
+                "date of birth and class, or contact the school office."
+            );
+            return;
+
+        }
+
+        const student = studentSnap.data();
+
+        let records = {};
+
+        try{
+            const recSnap = await getDoc(doc(db,"studentRecords",studentId));
+            if(recSnap.exists()) records = recSnap.data();
+        }catch(recErr){
+            // keep empty records — the dashboard will say nothing is recorded yet
+        }
+
+        document.getElementById("studentWelcomeMsg").textContent =
+            "Welcome, " + (student.studentFullName || name);
+
+        document.getElementById("studentProfileLine").textContent =
+            student.class + " · Date of Birth: " + formatDobForDisplay(student.dob);
+
+        renderStudentAttendance(records.attendance);
+        renderStudentMarks(records.marks);
+
+        studentLoginView.style.display = "none";
+        studentDashboardView.classList.add("show");
+
+    }catch(err){
+
+        if(err && err.code === "permission-denied"){
+            showStudentLoginError("Student login is not available right now. Please try again later.");
+        }else{
+            showStudentLoginError("Could not connect. Please check your internet connection and try again.");
+        }
+
+    }finally{
+
+        studentLoginBtn.disabled  = false;
+        studentLoginBtn.innerText = "Login";
+
+    }
+
+});
+
+studentLogoutBtn.addEventListener("click",function(){
+
+    studentDashboardView.classList.remove("show");
+    studentLoginView.style.display = "block";
+    studentLoginNameEl.value  = "";
+    studentLoginDobEl.value   = "";
+    studentLoginClassEl.value = "";
+    hideStudentLoginError();
+
+});
+
+
+function stopAdminListeners(){
+
+    if(unsubscribeApplications){
+        unsubscribeApplications();
+        unsubscribeApplications = null;
+    }
+
+    if(unsubscribeClasses){
+        unsubscribeClasses();
+        unsubscribeClasses = null;
+    }
+
+    if(unsubscribeStudents){
+        unsubscribeStudents();
+        unsubscribeStudents = null;
+    }
+
+    if(unsubscribeTeachers){
+        unsubscribeTeachers();
+        unsubscribeTeachers = null;
+    }
+
+    if(unsubscribeSubjects){
+        unsubscribeSubjects();
+        unsubscribeSubjects = null;
+    }
+
+}
+
+function resetAdminUI(){
+
+    stopAdminListeners();
+
+    adminLoginView.style.display = "block";
+    adminManagerView.classList.remove("show");
+    adminEmailInput.value = "";
+    adminPassInput.value  = "";
+
+}
+
+function resetTeacherUI(){
+
+    resetTeacherTools();
+
+    teacherLoginView.style.display = "block";
+    teacherDashboard.classList.remove("show");
+    teacherEmailInput.value = "";
+    teacherPassInput.value  = "";
+
+}
+
+
+onAuthStateChanged(auth,async function(user){
+
+    if(user && user.email === ADMIN_EMAIL){
+
+        // ADMIN session
+        resetTeacherUI();
 
         adminLoginView.style.display = "none";
         adminManagerView.classList.add("show");
@@ -3564,28 +5809,42 @@ onAuthStateChanged(auth,function(user){
         startApplicationsListener();
         startClassesListener();
         startStudentsListener();
+        startTeachersListener();
+        startSubjectsListener();
+
+    }else if(user){
+
+        // TEACHER session (any authenticated account that isn't Admin)
+        resetAdminUI();
+
+        teacherLoginView.style.display = "none";
+        teacherDashboard.classList.add("show");
+
+        // make sure the Teacher card is the one that is open
+        document.getElementById("studentCard").classList.remove("open");
+        document.getElementById("teacherCard").classList.add("open");
+
+        teacherWelcomeMsg.textContent = "Welcome, Teacher";
+
+        try{
+
+            const teacherSnap = await getDoc(doc(db,"teachers",user.email));
+
+            if(teacherSnap.exists() && teacherSnap.data().name){
+                teacherWelcomeMsg.textContent = "Welcome, " + teacherSnap.data().name;
+            }
+
+        }catch(err){
+            // keep generic "Welcome, Teacher" if this lookup fails
+        }
+
+        loadTeacherSchedule(user.email);
 
     }else{
 
-        if(unsubscribeApplications){
-            unsubscribeApplications();
-            unsubscribeApplications = null;
-        }
-
-        if(unsubscribeClasses){
-            unsubscribeClasses();
-            unsubscribeClasses = null;
-        }
-
-        if(unsubscribeStudents){
-            unsubscribeStudents();
-            unsubscribeStudents = null;
-        }
-
-        adminLoginView.style.display = "block";
-        adminManagerView.classList.remove("show");
-        adminEmailInput.value = "";
-        adminPassInput.value  = "";
+        // signed out
+        resetAdminUI();
+        resetTeacherUI();
 
     }
 
